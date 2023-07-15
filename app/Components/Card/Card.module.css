@@ -1,40 +1,24 @@
 .container{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    max-width: 800px;
-    width: 90vw;
+    justify-content: center;       
+    width: 60vw;
     padding: 2rem;
-    gap: 1.5rem;
+    gap: 5rem;
     border-radius: 1.5rem;
     background-color: var(--color-secondary);
     color: var(--color-primary);
-    position: relative;
+    
     box-shadow: 10px 10px 18px -4px rgba(0, 0, 0, 0.75);
+    padding: 2rem;
 }
-.container h1{
-    align-items: flex-end;
-    text-align: right;
-    border-bottom: var(--color-primary) 1px solid;
-    padding-bottom: 20px;
-}
-
-.container h2{
+ .container h1{
     display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-}
+    align-items: flex-end ;
+    justify-content: flex-end;
+ }
 
-.container h3{
-    font-size: 1em;
-    font-weight: 900;
-}
 
-.container h4{
-    font-size: 0.8em;
-    font-weight: 300;
-}
 
 .form_container{
     display: flex;
@@ -56,25 +40,37 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    gap: 50px;
-    margin: 2em 0;
+   gap: 2rem;
 }
 
 .btn button{
     border: .15rem solid var(--color-primary);
     background-color: var(--color-primary) !important;
     color: var(--color-secondary) !important;
+    text-align: center;
 }
-
-.box{
-    margin: 30px 0;
+.box{    
+    display: flex;   
+    justify-content: space-evenly;
+    gap: 3rem;
+    
+}
+.box1{    
+    display: flex;   
+    flex-direction: column;    
+    justify-content: center;
+    padding: 1rem;
+    width: 40vw;
+}
+.box1 h3{
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
+ }
 
 .box2{
     display: flex;
     flex-direction: column;
-    text-align: right;
+    justify-content: right;
+    padding: 1rem;
+    align-items: end;
+    width: 40vw;
 }

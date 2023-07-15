@@ -146,8 +146,11 @@ const Card = ({
           </form>
         </div>
       ) : (
-        <div>
+        <div >
+          <div>
+            <button onClick={()=>onCloseTwo()}>Cerrar</button>
           <h1>{username}</h1>
+          </div>
           <div className={css.box}>
             <div className={css.box1}>
               <h2>Datos de Usuario</h2>
@@ -176,21 +179,21 @@ const Card = ({
               <div className={css.box2}>
                 <h2>Casinos y fichas disponibles</h2>
                 {userCasino?.map(uc =>                
-                  <div key={uc.id} className={css.data2}>
-                    <h3>{uc.casino.name}</h3>                    
-                    <h4><b>Fichas disponibles:</b></h4>  
+                  <div key={uc.id} className={css.data}>
+                    <h3><b>{uc.casino.name}</b></h3>                    
+                    <h4>Fichas disponibles:</h4>  
                     <br />
                   </div>
                 )}
               </div>
             )}
+          </div>
             <div className={css.btn}>
               <button onClick={deleteUser}>Eliminar</button>
               <button onClick={blockUser}>{status === "DISABLED" ? "Desbloquear" : 'Bloquear'}</button>
               <button onClick={onClose}>Editar</button>
               <button onClick={changeRole}>Cambiar Rol</button>
             </div>
-          </div>
         </div>
       )}
     </div>
