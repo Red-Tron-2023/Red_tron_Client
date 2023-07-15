@@ -35,6 +35,7 @@ export default function Home() {
       .then((res) => res.json())
       .then((response) => {
         let user = {
+          id:response?.data.id,
           username: response?.data.username,
           role: response?.data.role,
           phone: response?.data.phone,

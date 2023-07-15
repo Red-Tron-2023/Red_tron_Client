@@ -8,6 +8,7 @@ type objectDb = {
   token: string;
   phone: Number;
   email: string;
+  id: string;
 };
 
 interface AuthContextValue {

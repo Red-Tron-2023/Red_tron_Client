@@ -8,6 +8,7 @@ import { user } from '../interfaces/interfaces';
 const initialUser: user = {
     username: 'guest',
     role: 'guest',
+    id: null,
     token: null,
     phone: null,
     email: null}

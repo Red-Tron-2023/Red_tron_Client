@@ -16,28 +16,14 @@ const Casino = ({ id, name, imageUrl, onClose }) => {
   const { userDb } = useUserContext();
   const tokenID = userDb?.token;
 
-  const userCasinoAsigned = usersCasino?.map((el) => el.user.username);
+  const userCasinoAsigned = usersCasino?.map(el => el.user.username);
   const userOptions = usersDb?.filter(
     (el) => !userCasinoAsigned?.includes(el.username)
   );
   const userSelected = usersDb?.filter((el) => option.usersId?.includes(el.id));
-  //   {
-  //     "id": "93de920b-bb2e-4d84-aec7-1ac85fa31a4c",
-  //     "debits": "0",
-  //     "credits": "0",
-  //     "createdAt": "2023-07-07T02:28:52.338Z",
-  //     "user": {
-  //         "id": "e857a19b-161f-4f5c-93ea-bd1b91da1a28",
-  //         "username": "nbadeng"
-  //     },
-  //     "casino": {
-  //         "id": "4148290e-6d72-432d-b662-b552b75a6aed",
-  //         "name": "Linkbuzz"
-  //     }
-  // }
-  console.log(userSelected);
+ 
 
-  const handlerOptionChange = ({ target: { value } }) => {
+  const handleOptionChange = ({ target: { value } }) => {
     if (option.usersId.includes(value)) return;
     setOption({
       ...option,
@@ -106,7 +92,7 @@ const Casino = ({ id, name, imageUrl, onClose }) => {
           <select
             name="Cajeros"
             placeholder="cajeros"
-            onChange={handlerOptionChange}
+            onChange={handleOptionChange}
           >
             <option>Cajeros</option>
             {userOptions?.map((e) => (

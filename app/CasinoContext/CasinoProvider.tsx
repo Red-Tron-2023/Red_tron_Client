@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, { useEffect } from "react";
 import { CasinosContext } from "./CasinoContext";
@@ -8,8 +9,8 @@ export const CasinoProvider = ({ children }: any) => {
   const [charge, setCharge] = React.useState(false);
   const { userDb } = useUserContext();
   const tokenID = userDb?.token;
-  console.log(userDb)
 
+  /************* Funcion para traer tods los casinos desde la base de datos y guardarlos en el estado global *************/
   const getCasinosDb = async () => {
     try {
       const response = await fetch("http://localhost:3001/casino", {
