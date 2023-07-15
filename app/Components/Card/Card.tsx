@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import css from "./Card.module.css";
 const Card = ({
   tokenId,
@@ -14,13 +14,13 @@ const Card = ({
   userCasino,
   status,
 }) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false);  
   const [userEdit, setUserEdit] = React.useState({
     phone,
     email,
     percent_agreement,
   }); 
-
+  
   const onClose = () => {
     setOpen(!open);
   };
@@ -30,6 +30,32 @@ const Card = ({
       : status === "DISABLED"
       ? "BLOQUEADO"
       : "ACTIVO";
+
+
+// const coinsMovements = async(idCasino:string) => {
+//   try {
+//     const response = await fetch(`http://localhost:3001/coinsMovements/${idCasino}`, {     
+//       headers: {
+//         "Content-Type": "application/json",
+//         authorization: "Bearer " + tokenId,
+//       },
+//     });
+//     const data = await response.json();  
+//     return data.data[0];
+    
+//   } catch (error) {
+//     console.log("Error fetching users:", error);
+//   }
+  
+// };
+
+// const coinsBalance = userCasino.map( el =>  coinsMovements(el.id) )
+// const arrayBalance = Promise.all(coinsBalance)
+// console.log(arrayBalance)
+useEffect(() => {
+}, [userCasino])
+
+
 
   const deleteUser = async () => {
     const response = await fetch(`http://localhost:3001/users/${id}`, {
@@ -42,6 +68,7 @@ const Card = ({
     reload();
     onCloseTwo();
   };
+  
   const blockUser = async () => {
     const state = status === "ACTIVE" ? "DISABLED" : "ACTIVE";
     const response = await fetch(`http://localhost:3001/users/${id}`, {
@@ -171,20 +198,21 @@ const Card = ({
             </div>
             {status === "INACTIVE" ? null : (
               <div className={css.box2}>
-                <h3>Casinos y creditos</h3>
-                {userCasino?.map((uc) => (
+                <h3>Casinos y fichas disponibles</h3>
+                {userCasino?.map(uc => { 
+                // let coinsBalance = coinsMovements(uc.id);
+                return(
                   <div key={uc.id} className={css.data2}>
-                    <h3>{uc.casino.name}</h3>
-                    <h3>Creditos:{uc.credits}</h3>
-                    <h3>Debitos:{uc.debits}</h3>
+                    <h3>{uc.casino.name}</h3>                    
+                    <h3>Fichas disponibles:</h3>                                      
                   </div>
-                ))}
+                )})}
               </div>
             )}
 
             <div className={css.btn}>
               <button onClick={deleteUser}>Eliminar</button>
-              <button onClick={blockUser}>Bloquear</button>
+              <button onClick={blockUser}>{status === "DISABLED" ? "Desbloquear" : 'Bloquear'}</button>
               <button onClick={onClose}>Editar</button>
               <button onClick={changeRole}>Cambiar Rol</button>
             </div>
