@@ -1,7 +1,8 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import { useUserContext } from "../../UserContext/UserContext";
 import { useCasinosContext } from "../../CasinoContext/CasinoContext";
+import css from "./AssignCoins.module.css";
 
 const AssignCoins = () => {
   const { userDb } = useUserContext();
@@ -40,14 +41,17 @@ const AssignCoins = () => {
 
   const postCoins = async (obj: object, token: string) => {
     try {
-      const response = await fetch(`http://localhost:3001/coinsMovements/coinsInflow/${userLoginId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: "Bearer " + token,
-        },
-        body: JSON.stringify(obj),
-      });
+      const response = await fetch(
+        `http://localhost:3001/coinsMovements/coinsInflow/${userLoginId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: "Bearer " + token,
+          },
+          body: JSON.stringify(obj),
+        }
+      );
 
       if (response.ok) {
         console.log("Fichas asignadas correctamente");
@@ -87,9 +91,9 @@ const AssignCoins = () => {
   };
 
   return (
-    <div onClick={(e) => e.stopPropagation()}>
-      <form onSubmit={handleSubmit}>       
-        <h2>Asignar Fichas</h2>
+    <div onClick={(e) => e.stopPropagation()} className={css.container}>
+      <h2>Asignar Fichas</h2>
+      <form onSubmit={handleSubmit}>
         <label>Casino:</label>
         <select
           name="id"
@@ -104,21 +108,19 @@ const AssignCoins = () => {
             </option>
           ))}
         </select>
-        <label>
-          Usuario:
-          <select
-            name="userCasinoId"
-            value={input.userCasinoId}
-            onChange={handleInputChange}
-          >
-            <option>Seleccionar Usuario</option>
-            {usersCasino?.map((Uc) => (
-              <option key={Uc.id} value={Uc.id}>
-                {Uc.user.username}
-              </option>
-            ))}
-          </select>
-        </label>
+        <label>Usuario:</label>
+        <select
+          name="userCasinoId"
+          value={input.userCasinoId}
+          onChange={handleInputChange}
+        >
+          <option>Seleccionar Usuario</option>
+          {usersCasino?.map((Uc) => (
+            <option key={Uc.id} value={Uc.id}>
+              {Uc.user.username}
+            </option>
+          ))}
+        </select>
 
         <label>Cantidad de fichas:</label>
         <input

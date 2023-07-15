@@ -17,7 +17,7 @@ export const CardUser = ({ onClose }) => {
         </div>
 
         <div className={css.username}>
-          <h2>{userDb?.username.toUpperCase()}</h2>
+          <h1>{userDb?.username.toUpperCase()}</h1>
           <h3>{userDb?.role}</h3>
         </div>
       </div>

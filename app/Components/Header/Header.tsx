@@ -10,7 +10,7 @@ export default function header({setOpen}) {
   
   return (
     <div className={css.header}>      
-      <h1>Bienvenida {userDb?.username.toUpperCase()}!</h1>
+      <h1>Bienvenido {userDb?.username.toUpperCase()}!</h1>
      
       <button  onClick={()=>setOpen()} >
         <h2><FaUser /></h2>

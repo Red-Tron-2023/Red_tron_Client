@@ -18,7 +18,6 @@ const openModal =()=> setOpen(!open);
     userDb.role !== "ADMIN" ? router.push("/") : null;
   }, [userDb]);
 
-console.log(open)
 
   return (
     <div>
