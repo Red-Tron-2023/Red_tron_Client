@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import css from "./Card.module.css";
 const Card = ({
   tokenId,
@@ -14,7 +14,7 @@ const Card = ({
   userCasino,
   status,
 }) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false);  
   const [userEdit, setUserEdit] = React.useState({
     phone,
     email,
@@ -31,6 +31,8 @@ const Card = ({
       ? "BLOQUEADO"
       : "ACTIVO";
 
+
+
   const deleteUser = async () => {
     const response = await fetch(`http://localhost:3001/users/${id}`, {
       method: "DELETE",
@@ -42,6 +44,7 @@ const Card = ({
     reload();
     onCloseTwo();
   };
+  
   const blockUser = async () => {
     const state = status === "ACTIVE" ? "DISABLED" : "ACTIVE";
     const response = await fetch(`http://localhost:3001/users/${id}`, {
@@ -171,23 +174,22 @@ const Card = ({
             </div>
             {status === "INACTIVE" ? null : (
               <div className={css.box2}>
-                <h2>Casinos y creditos</h2>
-                {userCasino?.map((uc) => (
+                <h2>Casinos y fichas disponibles</h2>
+                {userCasino?.map(uc =>                
                   <div key={uc.id} className={css.data2}>
-                    <h3>{uc.casino.name}</h3>
-                    <h4><b>Creditos:</b> {uc.credits}</h4>
-                    <h4><b>Debitos:</b> {uc.debits}</h4>
+                    <h3>{uc.casino.name}</h3>                    
+                    <h4><b>Fichas disponibles:</b></h4>  
                     <br />
                   </div>
-                ))}
+                )}
               </div>
             )}
-          </div>
-          <div className={css.btn}>
-            <button onClick={deleteUser}>Eliminar</button>
-            <button onClick={blockUser}>Bloquear</button>
-            <button onClick={onClose}>Editar</button>
-            <button onClick={changeRole}>Cambiar Rol</button>
+            <div className={css.btn}>
+              <button onClick={deleteUser}>Eliminar</button>
+              <button onClick={blockUser}>{status === "DISABLED" ? "Desbloquear" : 'Bloquear'}</button>
+              <button onClick={onClose}>Editar</button>
+              <button onClick={changeRole}>Cambiar Rol</button>
+            </div>
           </div>
         </div>
       )}
