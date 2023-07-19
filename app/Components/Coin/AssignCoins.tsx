@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useUserContext } from "../../UserContext/UserContext";
 import { useCasinosContext } from "../../CasinoContext/CasinoContext";
+import { useRouter } from "next/router";
 import css from "./AssignCoins.module.css";
 
 const AssignCoins = () => {
@@ -17,7 +18,9 @@ const AssignCoins = () => {
   const [idCasino, setIdCasino] = useState({
     id: "",
   });
-  console.log(userDb);
+
+
+
   const getUserCasino = async (casinoId) => {
     try {
       const response = await fetch(
@@ -90,9 +93,14 @@ const AssignCoins = () => {
     });
   };
 
+
+
   return (
     <div onClick={(e) => e.stopPropagation()} className={css.container}>
-      <h2>Asignar Fichas</h2>
+      <div className={css.row}>
+        <h2>Asignar Fichas</h2>
+        <button >Cerrar</button>
+      </div>
       <form onSubmit={handleSubmit}>
         <label>Casino:</label>
         <select

@@ -1,76 +1,77 @@
-.container{
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 60vw;
+  padding: 2rem;
+  gap: 3rem;
+  border-radius: 1.5rem;
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  box-shadow: 10px 10px 18px -4px rgba(0, 0, 0, 0.75);
+  padding: 3rem;
+}
+
+.datos{
     display: flex;
     flex-direction: column;
-    justify-content: center;       
-    width: 60vw;
-    padding: 2rem;
-    gap: 5rem;
-    border-radius: 1.5rem;
-    background-color: var(--color-secondary);
-    color: var(--color-primary);
-    
-    box-shadow: 10px 10px 18px -4px rgba(0, 0, 0, 0.75);
-    padding: 2rem;
+    gap: 3em;
 }
- .container h1{
-    display: flex;
-    align-items: flex-end ;
-    justify-content: flex-end;
- }
-
-
-
-.form_container{
-    display: flex;
-    width: 80vw;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
+.container h1 {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 
-.data{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 1rem;
+.form_container {
+  display: flex;
+  width: 80vw;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.btn{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-   gap: 2rem;
+.data {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
 }
 
-.btn button{
-    border: .15rem solid var(--color-primary);
-    background-color: var(--color-primary) !important;
-    color: var(--color-secondary) !important;
-    text-align: center;
+.btn {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 2rem;
 }
-.box{    
-    display: flex;   
-    justify-content: space-evenly;
-    gap: 3rem;
-    
-}
-.box1{    
-    display: flex;   
-    flex-direction: column;    
-    justify-content: center;
-    padding: 1rem;
-    width: 40vw;
-}
-.box1 h3{
-    display: flex;
- }
 
-.box2{
-    display: flex;
-    flex-direction: column;
-    justify-content: right;
-    padding: 1rem;
-    align-items: end;
-    width: 40vw;
+.btn button {
+  border: 0.15rem solid var(--color-primary);
+  background-color: var(--color-primary) !important;
+  color: var(--color-secondary) !important;
+  text-align: center;
+}
+.box {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 3rem;
+}
+.box1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+  width: 40vw;
+}
+.box1 h3 {
+  display: flex;
+}
+
+.box2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  padding: 1rem;
+  align-items: end;
+  width: 40vw;
 }
