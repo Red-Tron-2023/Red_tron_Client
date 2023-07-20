@@ -41,3 +41,30 @@
   display: flex;
   width: 80vw;
 }
+
+.pagination{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.pagination button{
+  color: var(--color-secondary);
+  background-color: transparent !important;
+  border: var(--color-secondary) 2px solid;
+  border-radius: 100%;
+}
+
+.pagination button:hover{
+  opacity: 0.7;
+}
+
+.antpost{
+  cursor: pointer;
+  border: none !important;
+}
+
+.active{
+  color: rgb(111, 0, 0) !important;
+}

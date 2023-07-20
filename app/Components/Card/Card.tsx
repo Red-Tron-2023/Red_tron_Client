@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import css from "./Card.module.css";
 const Card = ({
   tokenId,
