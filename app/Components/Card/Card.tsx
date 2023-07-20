@@ -14,7 +14,7 @@ const Card = ({
   userCasino,
   status,
 }) => {
-  const [open, setOpen] = React.useState(false);  
+  const [open, setOpen] = React.useState(false);
   const [userEdit, setUserEdit] = React.useState({
     phone,
     email,
@@ -31,8 +31,6 @@ const Card = ({
       ? "BLOQUEADO"
       : "ACTIVO";
 
-
-
   const deleteUser = async () => {
     const response = await fetch(`http://localhost:3001/users/${id}`, {
       method: "DELETE",
@@ -44,7 +42,7 @@ const Card = ({
     reload();
     onCloseTwo();
   };
-  
+
   const blockUser = async () => {
     const state = status === "ACTIVE" ? "DISABLED" : "ACTIVE";
     const response = await fetch(`http://localhost:3001/users/${id}`, {
@@ -115,11 +113,8 @@ const Card = ({
       {open ? (
         <div>
           <form className={css.form_container} onSubmit={handlerSubmit}>
-            <div className={css.form_container_name}>
-              <button onClick={() => onClose()}>Cerrar</button>
-            </div>
             <h2>{username}</h2>
-
+           
             <input
               type="text"
               name="phone"
@@ -146,56 +141,73 @@ const Card = ({
           </form>
         </div>
       ) : (
-        <div >
-          <div>
-            <button onClick={()=>onCloseTwo()}>Cerrar</button>
+        <div className={css.datos}>
           <h1>{username}</h1>
-          </div>
+          
+
           <div className={css.box}>
             <div className={css.box1}>
               <h2>Datos de Usuario</h2>
               <div className={css.data}>
-                <h3><b>Email:</b></h3>
+                <h3>
+                  <b>Email:</b>
+                </h3>
                 <h4>{email}</h4>
               </div>
               <div className={css.data}>
-                <h3><b>Telefono:</b></h3>
+                <h3>
+                  <b>Telefono:</b>
+                </h3>
                 <h4>{phone}</h4>
               </div>
               <div className={css.data}>
-                <h3><b>Rol:</b></h3>
+                <h3>
+                  <b>Rol:</b>
+                </h3>
                 <h4>{role === "ADMIN" ? "ADMINISTRADOR" : "CAJERO"}</h4>
               </div>
               <div className={css.data}>
-                <h3><b>Porcentaje de acuerdo:</b></h3>
+                <h3>
+                  <b>Porcentaje de acuerdo:</b>
+                </h3>
                 <h4>{percent_agreement}</h4>
               </div>
               <div className={css.data}>
-                <h3><b>Estatus:</b></h3>
+                <h3>
+                  <b>Estatus:</b>
+                </h3>
                 <h4>{transformStatus}</h4>
               </div>
             </div>
             {status === "INACTIVE" ? null : (
               <div className={css.box2}>
-                <h2>Casinos y fichas disponibles</h2>
-                {userCasino?.map(uc =>                
+                <h2>Casinos y Fichas</h2>
+                {userCasino?.map((uc) => (
                   <div key={uc.id} className={css.data}>
-                    <h3><b>{uc.casino.name}</b></h3>                    
-                    <h4>Fichas disponibles:</h4>  
+                    <h3>
+                      <b>{uc.casino.name}</b>
+                    </h3>
+                    <h4>Fichas disponibles:</h4>
                     <br />
                   </div>
-                )}
+                ))}
               </div>
             )}
           </div>
-            <div className={css.btn}>
-              <button onClick={deleteUser}>Eliminar</button>
-              <button onClick={blockUser}>{status === "DISABLED" ? "Desbloquear" : 'Bloquear'}</button>
-              <button onClick={onClose}>Editar</button>
-              <button onClick={changeRole}>Cambiar Rol</button>
-            </div>
+          <div className={css.btn}>
+            <button onClick={deleteUser}>Eliminar</button>
+            <button onClick={blockUser}>
+              {status === "DISABLED" ? "Desbloquear" : "Bloquear"}
+            </button>
+            <button onClick={onClose}>Editar</button>
+            <button onClick={changeRole}>Cambiar Rol</button>
+          </div>
+          
         </div>
+        
       )}
+      <button onClick={() => onCloseTwo()}>Cerrar</button>
+      
     </div>
   );
 };
