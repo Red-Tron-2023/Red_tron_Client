@@ -126,7 +126,7 @@ const Page = () => {
               className={css.antpost}
               onClick={nextPage}
               disabled={
-                currentPage === Math.ceil(usersDb.length / usersPerPage)
+                currentPage === Math.ceil(usersDb?.length / usersPerPage)
               }
             >
               {">>"}
