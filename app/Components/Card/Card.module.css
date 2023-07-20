@@ -23,9 +23,12 @@
   justify-content: flex-end;
 }
 
+.container h3{
+  font-size: 14pt;
+}
+
 .form_container {
   display: flex;
-  width: 80vw;
   flex-direction: column;
   justify-content: center;
   align-items: center;

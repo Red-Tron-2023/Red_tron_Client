@@ -114,7 +114,7 @@ const Card = ({
         <div>
           <form className={css.form_container} onSubmit={handlerSubmit}>
             <h2>{username}</h2>
-            <button onClick={() => onClose()}>Cerrar</button>
+           
             <input
               type="text"
               name="phone"
