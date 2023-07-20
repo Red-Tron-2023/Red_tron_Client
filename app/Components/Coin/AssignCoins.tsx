@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useUserContext } from "../../UserContext/UserContext";
 import { useCasinosContext } from "../../CasinoContext/CasinoContext";
-import { useRouter } from "next/router";
+import Link from "next/link";
 import css from "./AssignCoins.module.css";
 
 const AssignCoins = () => {
@@ -99,7 +99,7 @@ const AssignCoins = () => {
     <div onClick={(e) => e.stopPropagation()} className={css.container}>
       <div className={css.row}>
         <h2>Asignar Fichas</h2>
-        <button >Cerrar</button>
+        <Link className={css.blanco} href="/Admin">cerrar</Link>
       </div>
       <form onSubmit={handleSubmit}>
         <label>Casino:</label>

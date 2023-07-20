@@ -4,7 +4,6 @@
 import css from "./Casinos.module.css";
 import { useCasinosContext } from "../CasinoContext/CasinoContext";
 import Link from "next/link";
-
 import React from "react";
 import { Modal } from "../Components/modal/modal";
 import Casino from "../Components/Casino/Casino";

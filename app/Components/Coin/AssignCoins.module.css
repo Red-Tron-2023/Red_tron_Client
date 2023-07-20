@@ -32,4 +32,11 @@
     display: flex;
     flex-direction: row;
     gap: 100px;
+    align-items: center;
+}
+
+.blanco{
+    color: #ffffff;
+    font-weight: 900;
+        align-items: center;
 }
