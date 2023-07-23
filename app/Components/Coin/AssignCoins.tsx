@@ -31,7 +31,7 @@ const AssignCoins = () => {
   const getUserCasino = async (casinoId) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/userCasino?casinoId=${casinoId}`,
+        `https://redtronapi-development.up.railway.app/userCasino?casinoId=${casinoId}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -52,7 +52,7 @@ const AssignCoins = () => {
   const postCoins = async (obj: object, token: string) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/coinsMovements/coinsInflow/${userLoginId}`,
+        `https://redtronapi-development.up.railway.app/coinsMovements/coinsInflow/${userLoginId}`,
         {
           method: "POST",
           headers: {

@@ -13,7 +13,7 @@ const CreateCashier = ({ tokenId, onClose, reload }) => {
   });
 
   const createCashier = async (token:string, object:object) => {
-    const userDb = await fetch("http://localhost:3001/users", {
+    const userDb = await fetch("https://redtronapi-development.up.railway.app/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
