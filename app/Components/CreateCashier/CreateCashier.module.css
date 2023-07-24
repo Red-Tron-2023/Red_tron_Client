@@ -22,3 +22,9 @@
 .btn{
     background: var(--color-primary);
 }
+
+
+.errorMsg{
+    font-size: 9pt;
+    color: var(--color-primary) !important;
+  }
