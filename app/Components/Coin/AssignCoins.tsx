@@ -6,6 +6,7 @@ import { useCasinosContext } from "../../CasinoContext/CasinoContext";
 import Link from "next/link";
 import css from "./AssignCoins.module.css";
 import { useUsersContext } from "../../UsersContext/UsersContext";
+import swal from "sweetalert";
 
 const AssignCoins = () => {
   const { userDb } = useUserContext();
@@ -64,9 +65,15 @@ const AssignCoins = () => {
       );
 
       if (response.ok) {
-        sweetAlert("Fichas asignadas correctamente");
+        swal({
+          title: "Fichas asignadas correctamente!",
+          icon: "success",
+        });
       } else {
-        sweetAlert("Error al asignar fichas");
+        swal({
+          title: "No se pudieron asignar las fichas",
+          icon: "error",
+        });
       }
     } catch (error) {
       console.log(error.message);
@@ -137,7 +144,9 @@ const AssignCoins = () => {
         userCasinoId: "",
         inflow_qty: 0,
       });
+      
     }
+   
   };
 
   return (
