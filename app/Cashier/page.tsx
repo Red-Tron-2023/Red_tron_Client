@@ -7,7 +7,8 @@ import { useUserContext } from "../UserContext/UserContext";
 import { Modal } from "../Components/modal/modal";
 import CreateCashier from "../Components/CreateCashier/CreateCashier";
 import { useRouter } from "next/navigation";
-import Card from "../Components/Card/Card";
+import Link from "next/link";
+
 const Page = () => {
   const router = useRouter();
   const { usersDb, charge, setCharge } = useUsersContext();
@@ -20,9 +21,7 @@ const Page = () => {
   const onClose = () => {
     setOpen(!open);
   };
-  const onCloseTwo = () => {
-    setOpenUser(!openUser);
-  };
+
   const reload = () => {
     setCharge(!charge);
   };
@@ -80,24 +79,6 @@ const Page = () => {
             />
           </div>
         </Modal>
-      ) : openUser ? (
-        <Modal onClose={onCloseTwo}>
-          <div className="div">
-            <Card
-              tokenId={tokenId}
-              username={userSelected.username}
-              id={userSelected.id}
-              phone={userSelected.phone}
-              email={userSelected.email}
-              percent_agreement={userSelected.percent_agreement}
-              role={userSelected.role}
-              reload={reload}
-              onCloseTwo={onCloseTwo}
-              userCasino={userSelected.user_casino}
-              status={userSelected.status}
-            />
-          </div>
-        </Modal>
       ) : (
         <div className="div">
           <input type="text" placeholder="buscar..." />
@@ -140,15 +121,17 @@ const Page = () => {
                   className={css.cashiers_data}
                   onClick={() => openDataUser(user)}
                 >
-                  <h1>
-                    <FaUser />
-                  </h1>
-                  <div className="cashier-name">
-                    <h2>{user.username}</h2>
-                    <h3>
-                      {user.role === "ADMIN" ? "ADMINISTRADOR" : "CAJERO"}
-                    </h3>
-                  </div>
+                  <Link href={`/Cashier/${user.id}`}>
+                    <h1>
+                      <FaUser />
+                    </h1>
+                    <div className="cashier-name">
+                      <h2>{user.username}</h2>
+                      <h3>
+                        {user.role === "ADMIN" ? "ADMINISTRADOR" : "CAJERO"}
+                      </h3>
+                    </div>
+                  </Link>
                 </li>
               ))}
             </ul>

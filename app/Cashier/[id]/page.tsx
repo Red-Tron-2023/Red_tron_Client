@@ -1,33 +1,37 @@
 "use client";
 import React from "react";
 import css from "./Card.module.css";
-const Card = ({
-  tokenId,
-  username,
-  id,
-  phone,
-  email,
-  percent_agreement,
-  role,
-  reload,
-  onCloseTwo,
-  userCasino,
-  status,
-}) => {
+import { useUsersContext } from "../../UsersContext/UsersContext";
+import { useUserContext } from "../../UserContext/UserContext";
+import { Modal } from "../../Components/modal/modal";
+import { useRouter } from "next/navigation";
+
+const Page = ({params}) => {  
+  const router = useRouter()  
+  const {id} = params; 
+  const { usersDb, charge, setCharge } = useUsersContext(); 
+  const {userDb} = useUserContext();
+  const userSelected = usersDb?.filter(u => u.id === id) 
+  const tokenId = userDb?.token;
   const [open, setOpen] = React.useState(false);
   const [userEdit, setUserEdit] = React.useState({
-    phone,
-    email,
-    percent_agreement,
+    phone: userSelected[0].phone,
+    email: userSelected[0].email,
+    percent_agreement: userSelected[0].percent_agreement,
   });
-
+console.log(userSelected[0])
   const onClose = () => {
     setOpen(!open);
   };
+
+  const reload = () => {
+    setCharge(!charge);
+  };
+
   const transformStatus =
-    status === "INACTIVE"
+  userSelected[0].status === "INACTIVE"
       ? "INACTIVO"
-      : status === "DISABLED"
+      : userSelected[0].status === "DISABLED"
       ? "BLOQUEADO"
       : "ACTIVO";
 
@@ -39,12 +43,11 @@ const Card = ({
         authorization: "Bearer " + tokenId,
       },
     });
-    reload();
-    onCloseTwo();
+    reload();    
   };
 
   const blockUser = async () => {
-    const state = status === "ACTIVE" ? "DISABLED" : "ACTIVE";
+    const state = userSelected[0].status === "ACTIVE" ? "DISABLED" : "ACTIVE";
     const response = await fetch(`http://localhost:3001/users/${id}`, {
       method: "put",
       headers: {
@@ -56,10 +59,10 @@ const Card = ({
       }),
     });
     reload();
-    onCloseTwo();
+    
   };
   const changeRole = async () => {
-    const rol = role === "ADMIN" ? "TELLER" : "ADMIN";
+    const rol = userSelected[0].role === "ADMIN" ? "TELLER" : "ADMIN";
     const response = await fetch(`http://localhost:3001/users/${id}`, {
       method: "PUT",
       headers: {
@@ -70,8 +73,7 @@ const Card = ({
         role: rol,
       }),
     });
-    reload();
-    onCloseTwo();
+    reload();    
   };
 
   const handlerInputChange = ({
@@ -100,20 +102,19 @@ const Card = ({
       },
       body: JSON.stringify(user),
     });
+    reload();
   };
   const handlerSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    editUser(userEdit);
-    reload();
-    onClose();
-    onCloseTwo();
+    editUser(userEdit);    
+    onClose();   
   };
   return (
     <div className={css.container} onClick={(e) => e.stopPropagation()}>
-      {open ? (
-        <div>
+      {open ? (        
+        <div onClick={(e) => e.stopPropagation()}>
           <form className={css.form_container} onSubmit={handlerSubmit}>
-            <h2>{username}</h2>
+            <h2>{userSelected[0].username}</h2>
            
             <input
               type="text"
@@ -132,6 +133,7 @@ const Card = ({
             <input
               type="number"
               min={1}
+              max={100}
               name="percent_agreement"
               value={userEdit.percent_agreement}
               onChange={handlerPercentChange}
@@ -139,10 +141,10 @@ const Card = ({
             />
             <button type="submit">Guardar cambios</button>
           </form>
-        </div>
+        </div>       
       ) : (
         <div className={css.datos}>
-          <h1>{username}</h1>
+          <h1>{userSelected[0].username}</h1>
           
 
           <div className={css.box}>
@@ -152,25 +154,25 @@ const Card = ({
                 <h3>
                   <b>Email:</b>
                 </h3>
-                <h4>{email}</h4>
+                <h4>{userSelected[0].email}</h4>
               </div>
               <div className={css.data}>
                 <h3>
                   <b>Telefono:</b>
                 </h3>
-                <h4>{phone}</h4>
+                <h4>{userSelected[0].phone}</h4>
               </div>
               <div className={css.data}>
                 <h3>
                   <b>Rol:</b>
                 </h3>
-                <h4>{role === "ADMIN" ? "ADMINISTRADOR" : "CAJERO"}</h4>
+                <h4>{userSelected[0].role === "ADMIN" ? "ADMINISTRADOR" : "CAJERO"}</h4>
               </div>
               <div className={css.data}>
                 <h3>
                   <b>Porcentaje de acuerdo:</b>
                 </h3>
-                <h4>{percent_agreement}</h4>
+                <h4>{userSelected[0].percent_agreement}</h4>
               </div>
               <div className={css.data}>
                 <h3>
@@ -182,12 +184,14 @@ const Card = ({
             {status === "INACTIVE" ? null : (
               <div className={css.box2}>
                 <h2>Casinos y Fichas</h2>
-                {userCasino?.map((uc) => (
+                {userSelected[0].user_casino?.map((uc) => (
                   <div key={uc.id} className={css.data}>
                     <h3>
                       <b>{uc.casino.name}</b>
                     </h3>
-                    <h4>Fichas disponibles:</h4>
+                    <h4>Fichas disponibles:
+                    <b>{uc.coins}</b>
+                    </h4>
                     <br />
                   </div>
                 ))}
@@ -197,7 +201,7 @@ const Card = ({
           <div className={css.btn}>
             <button onClick={deleteUser}>Eliminar</button>
             <button onClick={blockUser}>
-              {status === "DISABLED" ? "Desbloquear" : "Bloquear"}
+              {userSelected[0].status === "DISABLED" ? "Desbloquear" : "Bloquear"}
             </button>
             <button onClick={onClose}>Editar</button>
             <button onClick={changeRole}>Cambiar Rol</button>
@@ -205,11 +209,11 @@ const Card = ({
           
         </div>
         
-      )}
-      <button onClick={() => onCloseTwo()}>Cerrar</button>
+        )}
       
+        <button onClick={()=> open ? onClose() : router.back()}>Cerrar</button>
     </div>
   );
 };
 
-export default Card;
+export default Page
