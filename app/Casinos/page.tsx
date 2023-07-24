@@ -38,7 +38,7 @@ export default function Page() {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(casinosDb.length / casinosPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(casinosDb?.length / casinosPerPage); i++) {
     pageNumbers.push(i);
   }
 
@@ -95,7 +95,7 @@ export default function Page() {
               className={css.antpost}
               onClick={nextPage}
               disabled={
-                currentPage === Math.ceil(casinosDb.length / casinosPerPage)
+                currentPage === Math.ceil(casinosDb?.length / casinosPerPage)
               }
             >
                {">>"}

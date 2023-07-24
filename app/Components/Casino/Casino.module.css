@@ -51,6 +51,11 @@
     padding: 1rem;
     color: var(--color-secondary);
 }
+
+.box1 h3{
+    cursor: pointer;
+}
+
 .box2{
     display: flex;
     flex-direction: column;
@@ -73,5 +78,13 @@
     border-radius: 1rem;
     padding: 1rem;
     color: var(--color-secondary);
+}
+
+.btn_close{
+    background-color: transparent !important;
+    color: brown;
+    font-size: 8pt;
+    width: fit-content;
+    padding: 0;
 }
 
