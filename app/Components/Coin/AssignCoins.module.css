@@ -40,3 +40,12 @@
     font-weight: 900;
     align-items: center;
 }
+
+.errores{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+.errores p{
+    font-size: 9pt;
+  }

@@ -10,16 +10,16 @@ import { useUsersContext } from "../../UsersContext/UsersContext";
 const AssignCoins = () => {
   const { userDb } = useUserContext();
   const { casinosDb } = useCasinosContext();
-  const {charge, setCharge } = useUsersContext(); 
-  
+  const { charge, setCharge } = useUsersContext();
+
   const tokenId = userDb?.token;
   const userLoginId = userDb?.id;
   const [usersCasino, setUsersCasino] = useState(null);
   const [input, setInput] = useState({
     userCasinoId: "",
-    inflow_qty: "",
+    inflow_qty: 0,
   });
-  
+
   const [idCasino, setIdCasino] = useState({
     id: "",
   });
@@ -71,7 +71,7 @@ const AssignCoins = () => {
     } catch (error) {
       console.log(error.message);
     }
-    reload()
+    reload();
   };
 
   const handleInputChange = ({
@@ -92,22 +92,61 @@ const AssignCoins = () => {
     });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    postCoins(input, tokenId);
-    setInput({
+  const [errors, setErrors] = useState({
+    id: "",
+    userCasinoId: "",
+    inflow_qty: "",
+  });
+
+  const validateForm = () => {
+    let hasErrors = false;
+    const newErrors = {
+      id: "",
       userCasinoId: "",
       inflow_qty: "",
-    });
+    };
+
+    if (!idCasino.id || idCasino.id === "Seleccionar Casino") {
+      newErrors.id = "Debes seleccionar un casino.";
+      hasErrors = true;
+    }
+
+    if (!input.userCasinoId || input.userCasinoId === "Seleccionar Usuario") {
+      newErrors.userCasinoId = "Debes seleccionar un usuario.";
+      hasErrors = true;
+    }
+
+    if (input.inflow_qty == 0 || isNaN(input.inflow_qty)|| !input.inflow_qty) {
+      newErrors.inflow_qty = "Cantidad de fichas inválida.";
+      hasErrors = true;
+    } else if (input.inflow_qty < 1) {
+      newErrors.inflow_qty =
+        "La cantidad de fichas debe ser mayor o igual a 1.";
+      hasErrors = true;
+    }
+
+    setErrors(newErrors);
+    return !hasErrors;
   };
 
-
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (validateForm()) {
+      postCoins(input, tokenId);
+      setInput({
+        userCasinoId: "",
+        inflow_qty: 0,
+      });
+    }
+  };
 
   return (
     <div onClick={(e) => e.stopPropagation()} className={css.container}>
       <div className={css.row}>
         <h2>Asignar Fichas</h2>
-        <Link className={css.blanco} href="/Admin">cerrar</Link>
+        <Link className={css.blanco} href="/Admin">
+          cerrar
+        </Link>
       </div>
       <form onSubmit={handleSubmit}>
         <label>Casino:</label>
@@ -117,6 +156,7 @@ const AssignCoins = () => {
           value={idCasino.id}
           onChange={handleIdChange}
         >
+          <div className={css.errores}>{errors.id && <p>{errors.id}</p>}</div>
           <option>Seleccionar Casino</option>
           {casinosDb?.map((Cs) => (
             <option key={Cs.id} value={Cs.id}>
@@ -130,6 +170,8 @@ const AssignCoins = () => {
           value={input.userCasinoId}
           onChange={handleInputChange}
         >
+          <div className={css.errores}>{errors.userCasinoId && <p>{errors.userCasinoId}</p>}</div>
+          
           <option>Seleccionar Usuario</option>
           {usersCasino?.map((Uc) => (
             <option key={Uc.id} value={Uc.id}>
@@ -143,10 +185,10 @@ const AssignCoins = () => {
           type="number"
           name="inflow_qty"
           value={input.inflow_qty}
-          min={1}
           onChange={handleInputChange}
         />
-
+        <div className={css.errores}>{errors.inflow_qty && <p>{errors.inflow_qty}</p>}</div>
+        
         <button type="submit">Asignar fichas</button>
       </form>
     </div>
