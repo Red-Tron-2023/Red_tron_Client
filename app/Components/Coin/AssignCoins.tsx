@@ -1,13 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, { useState } from "react";
 import { useUserContext } from "../../UserContext/UserContext";
 import { useCasinosContext } from "../../CasinoContext/CasinoContext";
 import Link from "next/link";
 import css from "./AssignCoins.module.css";
+import { useUsersContext } from "../../UsersContext/UsersContext";
 
 const AssignCoins = () => {
   const { userDb } = useUserContext();
   const { casinosDb } = useCasinosContext();
+  const {charge, setCharge } = useUsersContext(); 
+  
   const tokenId = userDb?.token;
   const userLoginId = userDb?.id;
   const [usersCasino, setUsersCasino] = useState(null);
@@ -15,11 +19,14 @@ const AssignCoins = () => {
     userCasinoId: "",
     inflow_qty: "",
   });
+  
   const [idCasino, setIdCasino] = useState({
     id: "",
   });
 
-
+  const reload = () => {
+    setCharge(!charge);
+  };
 
   const getUserCasino = async (casinoId) => {
     try {
@@ -57,13 +64,14 @@ const AssignCoins = () => {
       );
 
       if (response.ok) {
-        console.log("Fichas asignadas correctamente");
+        sweetAlert("Fichas asignadas correctamente");
       } else {
-        console.log("Error al asignar fichas");
+        sweetAlert("Error al asignar fichas");
       }
     } catch (error) {
       console.log(error.message);
     }
+    reload()
   };
 
   const handleInputChange = ({
