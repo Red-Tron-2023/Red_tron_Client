@@ -36,7 +36,7 @@ const Page = ({ params }) => {
       : "ACTIVO";
 
   const deleteUser = async () => {
-    const response = await fetch(`http://localhost:3001/users/${id}`, {
+    const response = await fetch(`https://redtronapi-development.up.railway.app/users/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

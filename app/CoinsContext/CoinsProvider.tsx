@@ -14,7 +14,7 @@ export const CoinsProvider = ({ children }: any) => {
 
   const getCoinsDb = async () => {
     try {
-      const response = await fetch("http://localhost:3001coinsMovements", {
+      const response = await fetch("https://redtronapi-development.up.railway.app/coinsMovements", {
         headers: {
           "Content-Type": "application/json",
           authorization: "Bearer " + tokenID,

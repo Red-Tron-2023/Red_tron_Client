@@ -19,7 +19,7 @@ const CreateCasino = ({ onClose, Reload }) => {
 
   const postCasino = async (obj, token) => {
     try {
-      const response = await fetch("http://localhost:3001/casino", {
+      const response = await fetch("https://redtronapi-development.up.railway.app/casino", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -74,10 +74,10 @@ const CreateCasino = ({ onClose, Reload }) => {
       try {
         await postCasino(input, tokenId);
 
-        setInput({
-          name: "",
-          image_url: "",
-        });
+        // setInput({
+        //   name: "",
+        //   image_url: "",
+        // });
 
         onClose();
         Reload();

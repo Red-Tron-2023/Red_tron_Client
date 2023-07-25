@@ -12,7 +12,6 @@ export default function Home() {
     password: "",
   });
   const { userDb, setUserDB } = useUserContext();
-  console.log(userDb);
 
   useEffect(() => {
     userDb.role === "ADMIN" ? router.push("/Admin") : null;
@@ -25,7 +24,7 @@ export default function Home() {
     });
   };
   const adminLogin = async (input) => {
-    const userDb = await fetch("http://localhost:3001/auth/login", {
+    const userDb = await fetch("https://redtronapi-development.up.railway.app/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
