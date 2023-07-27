@@ -7,7 +7,8 @@ import { useRouter } from "next/router";
 import css from "./AssignCoins.module.css";
 import { useUsersContext } from "../../UsersContext/UsersContext";
 
-const AssignCoins = () => {
+
+const AssignCoins = ({setAssigned}) => {
   const { userDb } = useUserContext();
   const { casinosDb } = useCasinosContext();
   const {charge, setCharge } = useUsersContext(); 
@@ -62,6 +63,7 @@ const AssignCoins = () => {
           body: JSON.stringify(obj),
         }
       );
+      console.log("data",response) 
 
       if (response.ok) {
         sweetAlert("Fichas asignadas correctamente");
@@ -99,6 +101,7 @@ const AssignCoins = () => {
       userCasinoId: "",
       inflow_qty: "",
     });
+    setAssigned(input.userCasinoId)
   };
 
 
