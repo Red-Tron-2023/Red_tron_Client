@@ -3,7 +3,7 @@
     color: var(--color-primary);
     padding: 40px 80px;
     max-width: max-content;
-    width: fit-content;
+    width: 90%;
     border-radius: 2rem;
     display: flex;
     flex-direction: column;
