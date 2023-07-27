@@ -143,7 +143,7 @@ const AssignCoins = ({setAssigned}) => {
     postCoins(input, tokenId);
     setInput({
       userCasinoId: "",
-      inflow_qty: "",
+      inflow_qty: 0,
     });
     setAssigned(input.userCasinoId)
   };
