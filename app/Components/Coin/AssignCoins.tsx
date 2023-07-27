@@ -7,7 +7,8 @@ import { useRouter } from "next/router";
 import css from "./AssignCoins.module.css";
 import { useUsersContext } from "../../UsersContext/UsersContext";
 
-const AssignCoins = () => {
+
+const AssignCoins = ({setAssigned}) => {
   const { userDb } = useUserContext();
   const { casinosDb } = useCasinosContext();
   const {charge, setCharge } = useUsersContext(); 
@@ -31,7 +32,7 @@ const AssignCoins = () => {
   const getUserCasino = async (casinoId) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/userCasino?casinoId=${casinoId}`,
+        `https://redtronapi-development.up.railway.app/userCasino?casinoId=${casinoId}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -52,7 +53,7 @@ const AssignCoins = () => {
   const postCoins = async (obj: object, token: string) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/coinsMovements/coinsInflow/${userLoginId}`,
+        `https://redtronapi-development.up.railway.app/coinsMovements/coinsInflow/${userLoginId}`,
         {
           method: "POST",
           headers: {
@@ -62,6 +63,7 @@ const AssignCoins = () => {
           body: JSON.stringify(obj),
         }
       );
+      console.log("data",response) 
 
       if (response.ok) {
         sweetAlert("Fichas asignadas correctamente");
@@ -99,6 +101,7 @@ const AssignCoins = () => {
       userCasinoId: "",
       inflow_qty: "",
     });
+    setAssigned(input.userCasinoId)
   };
 
 

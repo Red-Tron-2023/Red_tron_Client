@@ -12,7 +12,7 @@ export const UsersProvider = ({ children }: any) => {
 
   const getUsersDb = async () => {
     try {
-      const response = await fetch("http://localhost:3001/users", {
+      const response = await fetch("https://redtronapi-development.up.railway.app/users", {
         headers: {
           "Content-Type": "application/json",
           authorization: "Bearer " + tokenID,

@@ -13,7 +13,7 @@ export const CasinoProvider = ({ children }: any) => {
   /************* Funcion para traer tods los casinos desde la base de datos y guardarlos en el estado global *************/
   const getCasinosDb = async () => {
     try {
-      const response = await fetch("http://localhost:3001/casino", {
+      const response = await fetch("https://redtronapi-development.up.railway.app/casino", {
         headers: {
           "Content-Type": "application/json",
           authorization: "Bearer " + tokenID,

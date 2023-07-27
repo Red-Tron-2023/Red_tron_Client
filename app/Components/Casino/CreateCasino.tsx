@@ -13,7 +13,7 @@ const CreateCasino = ({ onClose, Reload }) => {
   });
   const postCasino = async (obj: object, token: string) => {
     try {
-      const userDb = await fetch("http://localhost:3001/casino", {
+      const userDb = await fetch("https://redtronapi-development.up.railway.app/casino", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
