@@ -8,7 +8,8 @@ import css from "./AssignCoins.module.css";
 import { useUsersContext } from "../../UsersContext/UsersContext";
 import swal from "sweetalert";
 
-const AssignCoins = () => {
+
+const AssignCoins = ({setAssigned}) => {
   const { userDb } = useUserContext();
   const { casinosDb } = useCasinosContext();
   const { charge, setCharge } = useUsersContext();
@@ -53,7 +54,7 @@ const AssignCoins = () => {
   const postCoins = async (obj: object, token: string) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/coinsMovements/coinsInflow/${userLoginId}`,
+        `https://redtronapi-development.up.railway.app/coinsMovements/coinsInflow/${userLoginId}`,
         {
           method: "POST",
           headers: {
@@ -63,6 +64,7 @@ const AssignCoins = () => {
           body: JSON.stringify(obj),
         }
       );
+      console.log("data",response) 
 
       if (response.ok) {
         swal({
@@ -138,15 +140,12 @@ const AssignCoins = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (validateForm()) {
-      postCoins(input, tokenId);
-      setInput({
-        userCasinoId: "",
-        inflow_qty: 0,
-      });
-      
-    }
-   
+    postCoins(input, tokenId);
+    setInput({
+      userCasinoId: "",
+      inflow_qty: "",
+    });
+    setAssigned(input.userCasinoId)
   };
 
   return (
