@@ -49,7 +49,7 @@ const Casino = ({ id, name, imageUrl, onClose }) => {
   };
   const postUserCasino = async () => {
     try {
-      const response = await fetch("http://localhost:3001/userCasino", {
+      const response = await fetch("https://redtronapi-development.up.railway.app/userCasino", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
