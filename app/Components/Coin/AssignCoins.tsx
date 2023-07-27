@@ -6,6 +6,7 @@ import { useCasinosContext } from "../../CasinoContext/CasinoContext";
 import Link from "next/link";
 import css from "./AssignCoins.module.css";
 import { useUsersContext } from "../../UsersContext/UsersContext";
+import swal from "sweetalert";
 
 
 const AssignCoins = ({setAssigned}) => {
