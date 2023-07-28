@@ -79,7 +79,7 @@ const Coin = ({ assignedId }) => {
       })
     : coinsMovements;
 
-  const currentItems = filteredMovements.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredMovements?.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
     <div className={css.container}>
