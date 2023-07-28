@@ -2,10 +2,8 @@
 "use client";
 
 import css from "./Casinos.module.css";
+import React, { useState } from "react";
 import { useCasinosContext } from "../CasinoContext/CasinoContext";
-import Link from "next/link";
-
-import React from "react";
 import { Modal } from "../Components/modal/modal";
 import Casino from "../Components/Casino/Casino";
 import CreateCasino from "../Components/Casino/CreateCasino";
@@ -21,6 +19,41 @@ export default function Page() {
   const openCasino = (casino) => {
     setOpen(!open);
     setCasino(casino);
+  };
+
+  // Estado para controlar la página actual
+  const [currentPage, setCurrentPage] = useState(1);
+  // Estado para almacenar la cantidad de casinos por página (en este caso, 6 por página)
+  const casinosPerPage = 3;
+  // Estado para calcular el índice del último casino en cada página
+  const indexOfLastCasino = currentPage * casinosPerPage;
+  // Estado para calcular el índice del primer casino en cada página
+  const indexOfFirstCasino = indexOfLastCasino - casinosPerPage;
+  // Estado para obtener los casinos que se mostrarán en la página actual
+  const currentCasinos = casinosDb?.slice(
+    indexOfFirstCasino,
+    indexOfLastCasino
+  );
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(casinosDb?.length / casinosPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
+  // Función para ir a la página siguiente
+  const nextPage = () => {
+    if (currentPage < Math.ceil(casinosDb.length / casinosPerPage)) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  // Función para ir a la página anterior
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prevPage) => prevPage - 1);
+    }
   };
 
   return (
@@ -45,15 +78,34 @@ export default function Page() {
             <span>+</span>
             CREAR NUEVO CASINO
           </button>
+          <div className={css.pagination}>
+            <button
+              className={css.antpost}
+              onClick={prevPage}
+              disabled={currentPage === 1}
+            >
+              {"<<"}
+            </button>
+            <p>{currentPage} de {pageNumbers.length}</p>
+            
+            <button
+              className={css.antpost}
+              onClick={nextPage}
+              disabled={
+                currentPage === Math.ceil(casinosDb?.length / casinosPerPage)
+              }
+            >
+               {">>"}
+            </button>
+          </div>
           <div className={css.tri}>
-            {casinosDb?.map((e) => (
+            {currentCasinos?.map((e) => (
               <div key={e.id} onClick={() => openCasino(e)}>
                 <img src={e.imageUrl} alt="casino" width={150} height={150} />
                 <h3>{e.name}</h3>
               </div>
             ))}
           </div>
-          
         </div>
       )}
     </main>

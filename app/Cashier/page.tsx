@@ -8,6 +8,7 @@ import { Modal } from "../Components/modal/modal";
 import CreateCashier from "../Components/CreateCashier/CreateCashier";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import page from "../Password/page";
 
 const Page = () => {
   const router = useRouter();
@@ -34,6 +35,39 @@ const Page = () => {
     setOpenUser(!openUser);
   };
 
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const usersPerPage = 4; // Define la cantidad de usuarios por página
+
+  // Calcula el índice del último usuario en cada página
+  const indexOfLastUser = currentPage * usersPerPage;
+  // Calcula el índice del primer usuario en cada página
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  // Filtra los usuarios que se mostrarán en la página actual
+  const currentUsers = usersDb?.slice(indexOfFirstUser, indexOfLastUser);
+
+  // Calcula los números de página
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil((usersDb?.length || 1) / usersPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
+  // Función para cambiar de página
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Función para ir a la página siguiente
+  const nextPage = () => {
+    if (currentPage < Math.ceil(usersDb.length / usersPerPage)) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  // Función para ir a la página anterior
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prevPage) => prevPage - 1);
+    }
+  };
+
   return (
     <main className="jc-sa">
       {open ? (
@@ -53,9 +87,28 @@ const Page = () => {
             <span>+</span>
             CREAR NUEVO
           </button>
+          <div className={css.pagination}>
+            <button
+              className={css.antpost}
+              onClick={prevPage}
+              disabled={currentPage === 1}
+            >
+              {"<<"}
+            </button>
+            <p>{currentPage} de {pageNumbers.length}</p>
+            <button
+              className={css.antpost}
+              onClick={nextPage}
+              disabled={
+                currentPage === Math.ceil(usersDb?.length / usersPerPage)
+              }
+            >
+              {">>"}
+            </button>
+          </div>
           <div className="users">
             <ul className={css.container_cashiers}>
-              {usersDb?.map((user) => (
+              {currentUsers?.map((user) => (
                 <li
                   key={user.id}
                   className={css.cashiers_data}

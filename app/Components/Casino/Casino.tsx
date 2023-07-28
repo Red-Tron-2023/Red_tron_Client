@@ -16,12 +16,11 @@ const Casino = ({ id, name, imageUrl, onClose }) => {
   const { userDb } = useUserContext();
   const tokenID = userDb?.token;
 
-  const userCasinoAsigned = usersCasino?.map(el => el.user.username);
+  const userCasinoAsigned = usersCasino?.map((el) => el.user.username);
   const userOptions = usersDb?.filter(
     (el) => !userCasinoAsigned?.includes(el.username)
   );
   const userSelected = usersDb?.filter((el) => option.usersId?.includes(el.id));
- 
 
   const handleOptionChange = ({ target: { value } }) => {
     if (option.usersId.includes(value)) return;
@@ -58,11 +57,11 @@ const Casino = ({ id, name, imageUrl, onClose }) => {
         },
         body: JSON.stringify(option),
       });
-      setRefresh(!refresh)
+      setRefresh(!refresh);
       setOption({
         usersId: [],
         casinoId: id,
-      })
+      });
     } catch (error) {
       console.log(error.message);
     }
@@ -72,6 +71,26 @@ const Casino = ({ id, name, imageUrl, onClose }) => {
     getUserCasino(id);
   }, [id, refresh]);
 
+
+  const [isButtonVisible, setButtonVisibility] = useState(null);
+
+  // Función para mostrar el botón cuando el cursor está encima del elemento h3
+  const showButton = (userId) => {
+    setButtonVisibility(userId);
+  };
+
+  // Función para ocultar el botón cuando el cursor sale del elemento h3
+  const hideButton = () => {
+    setButtonVisibility(null);
+  };
+
+  // Función para manejar el clic en el botón
+  const handleButtonClick = (userId) => {
+    // Coloca aquí la lógica para eliminar al usuario según su ID (userId)
+    // Por ejemplo, puedes llamar a una función para eliminar al usuario de la lista
+    console.log("Usuario eliminado:", userId);
+  };
+
   return (
     <div onClick={(e) => e.stopPropagation()} className={css.container}>
       <div className={css.title}>
@@ -80,14 +99,26 @@ const Casino = ({ id, name, imageUrl, onClose }) => {
         <button onClick={onClose}>cerrar</button>
       </div>
       <div className={css.boxes}>
-        <div className={css.box}>
-          <h2>Cajeros activos</h2>
-          <div className={css.box1}>
-            {usersCasino?.map((el) => (
-              <h3 key={el.user.id}>{el.user.username}</h3>
-            ))}
-          </div>
+        <div className={css.box1}>
+          {usersCasino?.map((el) => (
+            <h3
+              key={el.user.id}
+              onMouseEnter={() => showButton(el.user.id)}
+              onMouseLeave={() => hideButton()}
+            >
+              {el.user.username}{" "}
+              <button
+                className={`${css.btn_close} ${
+                  isButtonVisible === el.user.id ? "" : "hidden"
+                }`}
+                onClick={() => handleButtonClick(el.user.id)}
+              >
+                eliminar
+              </button>
+            </h3>
+          ))}
         </div>
+
         <div className={css.box2}>
           <select
             name="Cajeros"
@@ -106,7 +137,6 @@ const Casino = ({ id, name, imageUrl, onClose }) => {
               <h3 key={obj.id}>{obj.username}</h3>
             ))}
           </div>
-         
         </div>
       </div>
       <button onClick={() => postUserCasino()}>AGREGAR</button>
