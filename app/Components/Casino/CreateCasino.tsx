@@ -9,12 +9,12 @@ const CreateCasino = ({ onClose, Reload }) => {
 
   const [input, setInput] = useState({
     name: "",
-    image_url: "",
+    imageUrl: "",
   });
-
+console.log(input)
   const [errors, setErrors] = useState({
     name: "",
-    image_url: "",
+    imageUrl: "",
   });
 
   const postCasino = async (obj, token) => {
@@ -38,8 +38,7 @@ const CreateCasino = ({ onClose, Reload }) => {
     }
   };
 
-  const handlerInputChange = (e) => {
-    const { name, value } = e.target;
+  const handlerInputChange = ({target:{name, value}}:React.ChangeEvent<HTMLInputElement>) => {    
     setInput({
       ...input,
       [name]: value,
@@ -50,7 +49,7 @@ const CreateCasino = ({ onClose, Reload }) => {
     let hasErrors = false;
     const newErrors = {
       name: "",
-      image_url: "",
+      imageUrl: "",
     };
 
     if (!input.name) {
@@ -58,8 +57,8 @@ const CreateCasino = ({ onClose, Reload }) => {
       hasErrors = true;
     }
 
-    if (!input.image_url) {
-      newErrors.image_url = "Debe ingresar una URL de imagen.";
+    if (!input.imageUrl) {
+      newErrors.imageUrl = "Debe ingresar una URL de imagen.";
       hasErrors = true;
     }
 
@@ -113,12 +112,12 @@ const CreateCasino = ({ onClose, Reload }) => {
         <div className={css.formGroup}>
           <input
             type="text"
-            name="image_url"
-            value={input.image_url}
+            name="imageUrl"
+            value={input.imageUrl}
             placeholder="URL de imagen"
             onChange={handlerInputChange}
           />
-          {errors.image_url && <p className={css.errorMsg}>{errors.image_url}</p>}
+          {errors.imageUrl && <p className={css.errorMsg}>{errors.imageUrl}</p>}
         </div>
         <button type="submit">Crear</button>
       </form>
