@@ -44,11 +44,12 @@ const Page = ({ params }) => {
       },
     });
     reload();
+    router.back()
   };
 
   const blockUser = async () => {
     const state = userSelected[0].status === "ACTIVE" ? "DISABLED" : "ACTIVE";
-    const response = await fetch(`http://localhost:3001/users/${id}`, {
+    const response = await fetch(`https://redtronapi-development.up.railway.app/users/${id}`, {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -62,7 +63,7 @@ const Page = ({ params }) => {
   };
   const changeRole = async () => {
     const rol = userSelected[0].role === "ADMIN" ? "TELLER" : "ADMIN";
-    const response = await fetch(`http://localhost:3001/users/${id}`, {
+    const response = await fetch(`https://redtronapi-development.up.railway.app/users/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -93,7 +94,7 @@ const Page = ({ params }) => {
   };
 
   const editUser = async (user) => {
-    const response = await fetch(`http://localhost:3001/users/${id}`, {
+    const response = await fetch(`https://redtronapi-development.up.railway.app/users/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
