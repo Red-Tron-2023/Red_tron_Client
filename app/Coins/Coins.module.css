@@ -1,0 +1,11 @@
+.conatiner{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+.conatiner_css{
+    display: flex;
+   width:100%;
+    
+}

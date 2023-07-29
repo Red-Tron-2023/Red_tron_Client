@@ -1,10 +1,10 @@
 .container_cashiers {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   justify-content: center;
 
   flex-direction: row;
-  gap: 60px;
+  gap: 2rem;
   width: 80vw;
 }
 .cashiers_data {
@@ -16,7 +16,7 @@
   justify-content: center;
   cursor: pointer;
   align-items: center;
-  gap: 20px;
+  gap: 1rem;
 }
 
 .cashiers_data:hover {
@@ -72,4 +72,12 @@
 
 .active{
   color: rgb(111, 0, 0) !important;
+}
+
+@media (max-width: 500px){
+  .container_cashiers {
+        grid-template-columns: 1fr 1fr;    
+    gap: 1rem;
+    width: 100vw;
+  }
 }

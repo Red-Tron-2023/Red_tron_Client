@@ -1,13 +1,12 @@
 .container{
     background-color: var(--color-secondary);
     color: var(--color-primary);
-    padding: 40px 80px;
-    max-width: max-content;
-    width: 90%;
+    padding:1rem;    
+    width: 30vw;
     border-radius: 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: baseline;
+    justify-content: center;
     align-items: center;
     box-shadow: 10px 10px 18px -4px rgba(0, 0, 0, 0.75);
 }

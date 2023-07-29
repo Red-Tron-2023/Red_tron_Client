@@ -84,7 +84,7 @@ const Coin = ({ assignedId }) => {
   return (
     <div className={css.container}>
       <h2>Últimos Movimientos</h2>
-      <div>
+      <div className={css.input_filter}>
         <input
           type="text"
           placeholder="Buscar"

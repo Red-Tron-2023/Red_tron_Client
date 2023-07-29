@@ -36,7 +36,7 @@ const Page = () => {
   };
 
   const [currentPage, setCurrentPage] = React.useState(1);
-  const usersPerPage = 4; // Define la cantidad de usuarios por página
+  const usersPerPage = 6; // Define la cantidad de usuarios por página
 
   // Calcula el índice del último usuario en cada página
   const indexOfLastUser = currentPage * usersPerPage;

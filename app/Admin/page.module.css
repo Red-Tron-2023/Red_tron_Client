@@ -1,7 +1,18 @@
-.buttons_select{
-    display: flex;
+.container {
+  justify-content: space-around;
+  width: 90vw;
+}
+.buttons_select {
+  display: flex;
+  justify-content: space-around;
+  gap: 2rem;
+  width: 100%;
+  flex-direction: column;
+}
+
+@media (min-width: 375px) {
+  .container {
     justify-content: space-around;
-    gap: 2rem;
-    width: 100%;
-    flex-direction: column;
+    width: 80vw;
+  }
 }

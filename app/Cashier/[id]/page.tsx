@@ -203,7 +203,7 @@ const Page = ({ params }) => {
               <h2>Datos de Usuario</h2>
               <div className={css.data}>
                 <h3>
-                  <b>Email:</b>
+                  <b>Email: &nbsp;</b>
                 </h3>
                 <h4>{userSelected[0].email}</h4>
               </div>

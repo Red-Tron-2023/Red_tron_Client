@@ -1,6 +1,6 @@
 .container{
     background-color: var(--color-secondary);
-    padding: 40px;
+    padding: 1.5rem;
     width: fit-content;
     border-radius: 2rem;
     display: flex;
@@ -8,13 +8,13 @@
     justify-content: baseline;
     align-items: center;
     box-shadow: 10px 10px 18px -4px rgba(0, 0, 0, 0.75);
+    height: 80vh;
 }
 
 .title{
     display: flex;
-    justify-content: center;
-    padding: 2rem;
-    gap: 3em;
+    justify-content: center;    
+    gap: 2rem;
     color: var(--color-primary);
     align-items: center;
     flex-wrap: wrap;
@@ -22,11 +22,12 @@
 }
 
 .title img{
-    max-width: 160px;
+    max-width: 10rem;
 }
 
 .boxes{
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     justify-content: center;    
     gap: 3rem;
     padding: 2rem;
@@ -43,8 +44,8 @@
     display: flex;  
     flex-direction: column; 
     background-color: var(--color-primary); 
-    width:20vw;
-    height: 180px;   
+    width:30vw;
+    height: 30vh;   
     overflow-y: scroll;
     border-radius: 1rem;
     z-index: 999;
@@ -60,20 +61,21 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    width: 20vw;
+    width: 30vw;
+    height: 30vh;
     gap: 1rem;
 }
 .box2 select{
     font-size: 10pt;
     padding: 6px;
     background-color: var(--color-primary);
-    width: 20vw;
+    width: 30vw;
     border-radius:.25rem;
 }
 .box3{
     background-color: var(--color-primary);
-    width:20vw;
-    height: 180px;   
+    width:30vw;
+    height: 10rem;   
     overflow-y: scroll;
     border-radius: 1rem;
     padding: 1rem;
@@ -88,3 +90,54 @@
     padding: 0;
 }
 
+@media (max-width: 375px) {
+    .container{     
+      width: 80vw;
+      height: 80vh;
+  padding: .75rem;
+  }
+  .boxes{
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  .title{       
+    gap: 1rem;
+    
+}
+  .title img{
+    width: 7rem;
+   
+}
+.title h1{
+    font-size: 1rem !important;
+}
+
+.box1{
+   
+    width:70vw;
+    height: 15vh;
+   
+   
+}
+
+
+
+.box2{
+  
+    width:70vw;
+    height: 15vh;
+   
+}
+.box2 select{
+    
+    width: 70vw;
+    
+}
+.box3{
+    
+    width:70vw;
+    height: 15vh;  
+    
+}
+  }

@@ -94,7 +94,7 @@
 @media (max-width: 1039px) {
  .container{
   width: 90vw;
-  padding-bottom: 100px;
+  padding: 1rem;
  }
 
  .box{
@@ -138,5 +138,28 @@
   text-align: center;
   font-size: 0.9em;
   margin: 10px 0;
+ }
+}
+@media (max-width: 375px) {
+ .container{
+  width: 90vw; 
+  padding: 1rem;
+  gap: .25rem;
+ }
+
+ .box{
+  gap: 1rem;
+ }
+ .box1 {
+  width: 90vw;
+  padding: 1rem;
+ }
+ .btn{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+ }
+ .datos{  
+  gap: .25rem;
+  
  }
 }
