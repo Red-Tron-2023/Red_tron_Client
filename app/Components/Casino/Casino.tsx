@@ -23,11 +23,17 @@ const Casino = ({ id, name, imageUrl, onClose }) => {
   const userSelected = usersDb?.filter((el) => option.usersId?.includes(el.id));
 
   const handleOptionChange = ({ target: { value } }) => {
-    if (option.usersId.includes(value)) return;
-    setOption({
-      ...option,
-      usersId: option.usersId.concat(value),
-    });
+    if (option.usersId.includes(value)) {
+      setOption({
+        ...option,
+        usersId: option.usersId.filter((id) => id !== value),
+      });
+    } else {
+      setOption({
+        ...option,
+        usersId: option.usersId.concat(value),
+      });
+    }
   };
 
   const getUserCasino = async (casinoId) => {
@@ -47,16 +53,20 @@ const Casino = ({ id, name, imageUrl, onClose }) => {
       console.log(error.message);
     }
   };
+
   const postUserCasino = async () => {
     try {
-      const response = await fetch("https://redtronapi-development.up.railway.app/userCasino", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: "Bearer " + tokenID,
-        },
-        body: JSON.stringify(option),
-      });
+      const response = await fetch(
+        "https://redtronapi-development.up.railway.app/userCasino",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: "Bearer " + tokenID,
+          },
+          body: JSON.stringify(option),
+        }
+      );
       setRefresh(!refresh);
       setOption({
         usersId: [],
@@ -71,24 +81,21 @@ const Casino = ({ id, name, imageUrl, onClose }) => {
     getUserCasino(id);
   }, [id, refresh]);
 
-
   const [isButtonVisible, setButtonVisibility] = useState(null);
 
-  // Función para mostrar el botón cuando el cursor está encima del elemento h3
   const showButton = (userId) => {
     setButtonVisibility(userId);
   };
 
-  // Función para ocultar el botón cuando el cursor sale del elemento h3
   const hideButton = () => {
     setButtonVisibility(null);
   };
 
-  // Función para manejar el clic en el botón
   const handleButtonClick = (userId) => {
-    // Coloca aquí la lógica para eliminar al usuario según su ID (userId)
-    // Por ejemplo, puedes llamar a una función para eliminar al usuario de la lista
-    console.log("Usuario eliminado:", userId);
+    setOption({
+      ...option,
+      usersId: option.usersId.filter((id) => id !== userId),
+    });
   };
 
   return (
@@ -101,21 +108,7 @@ const Casino = ({ id, name, imageUrl, onClose }) => {
       <div className={css.boxes}>
         <div className={css.box1}>
           {usersCasino?.map((el) => (
-            <h3
-              key={el.user.id}
-              onMouseEnter={() => showButton(el.user.id)}
-              onMouseLeave={() => hideButton()}
-            >
-              {el.user.username}{" "}
-              <button
-                className={`${css.btn_close} ${
-                  isButtonVisible === el.user.id ? "" : "hidden"
-                }`}
-                onClick={() => handleButtonClick(el.user.id)}
-              >
-                eliminar
-              </button>
-            </h3>
+            <h3 key={el.user.id}>{el.user.username}</h3>
           ))}
         </div>
 
@@ -133,9 +126,27 @@ const Casino = ({ id, name, imageUrl, onClose }) => {
             ))}
           </select>
           <div className={css.box3}>
-            {userSelected?.map((obj) => (
-              <h3 key={obj.id}>{obj.username}</h3>
-            ))}
+            {option.usersId.map((userId) => {
+              const user = usersDb.find((user) => user.id === userId);
+              if (!user) return null;
+              return (
+                <h3
+                  key={user.id}
+                  onMouseEnter={() => showButton(user.id)}
+                  onMouseLeave={() => hideButton()}
+                >
+                  {user.username}{" "}
+                  <button
+                    className={`${css.btn_close} ${
+                      isButtonVisible === user.id ? "" : "hidden"
+                    }`}
+                    onClick={() => handleButtonClick(user.id)}
+                  >
+                    eliminar
+                  </button>
+                </h3>
+              );
+            })}
           </div>
         </div>
       </div>
