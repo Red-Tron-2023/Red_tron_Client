@@ -20,7 +20,7 @@ const Casino = ({ id, name, imageUrl, onClose }) => {
   const userOptions = usersDb?.filter(
     (el) => !userCasinoAsigned?.includes(el.username)
   );
-  const userSelected = usersDb?.filter((el) => option.usersId?.includes(el.id));
+
 
   const handleOptionChange = ({ target: { value } }) => {
     if (option.usersId.includes(value)) {
