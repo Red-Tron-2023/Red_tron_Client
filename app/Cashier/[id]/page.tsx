@@ -19,7 +19,7 @@ const Page = ({ params }) => {
     email: userSelected[0].email,
     percent_agreement: userSelected[0].percent_agreement,
   });
-  console.log(userSelected[0]);
+
   const onClose = () => {
     setOpen(!open);
   };
@@ -61,6 +61,7 @@ const Page = ({ params }) => {
     });
     reload();
   };
+
   const changeRole = async () => {
     const rol = userSelected[0].role === "ADMIN" ? "TELLER" : "ADMIN";
     const response = await fetch(`https://redtronapi-development.up.railway.app/users/${id}`, {
@@ -84,6 +85,7 @@ const Page = ({ params }) => {
       [name]: value,
     });
   };
+  
   const handlerPercentChange = ({
     target: { name, value },
   }: React.ChangeEvent<HTMLInputElement>) => {

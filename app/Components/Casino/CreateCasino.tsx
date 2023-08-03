@@ -11,7 +11,7 @@ const CreateCasino = ({ onClose, Reload }) => {
     name: "",
     imageUrl: "",
   });
-console.log(input)
+
   const [errors, setErrors] = useState({
     name: "",
     imageUrl: "",

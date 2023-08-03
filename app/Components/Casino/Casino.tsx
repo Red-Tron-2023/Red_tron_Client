@@ -5,7 +5,7 @@ import { useUsersContext } from "../../UsersContext/UsersContext";
 import css from "./Casino.module.css";
 import { useUserContext } from "../../UserContext/UserContext";
 
-const Casino = ({ id, name, imageUrl, onClose }) => {
+const Casino = ({ id, name, imageUrl, onClose, Reload }) => {
   const { usersDb, charge, setCharge } = useUsersContext();
   const [option, setOption] = useState({
     usersId: [],
@@ -74,6 +74,27 @@ const Casino = ({ id, name, imageUrl, onClose }) => {
       });
     } catch (error) {
       console.log(error.message);
+    }
+  };
+
+  const deleteCasino = async () => {
+    try {
+      const response = await fetch(
+        `https://redtronapi-development.up.railway.app/casino/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: "Bearer " + tokenID,
+          },
+          body: JSON.stringify({status:'DISABLED'}),
+        }
+      )      
+      Reload();
+      onClose();
+         
+    } catch (error) {
+      console.log(error);      
     }
   };
 
@@ -151,6 +172,7 @@ const Casino = ({ id, name, imageUrl, onClose }) => {
         </div>
       </div>
       <button onClick={() => postUserCasino()}>AGREGAR</button>
+      <h4>Si quiere eliminar este casino, presione <b onClick={deleteCasino}>Aquí</b></h4>
     </div>
   );
 };

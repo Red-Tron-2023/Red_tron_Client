@@ -16,7 +16,7 @@ export default function Home() {
   const [showPassword, setShowPassword] = React.useState(false);
 
   useEffect(() => {
-    userDb.role === "ADMIN" ? router.push("/Admin") : null;
+    userDb.role === "ADMIN" ? router.push("/Admin") : userDb.role === "GUEST" ? router.push("/") : router.push("");
   }, [userDb]);
 
   const handlerInputChange = ({ target: { name, value } }) => {
@@ -39,7 +39,7 @@ export default function Home() {
       body: JSON.stringify(input),
     })
       .then((res) => res.json())
-      .then((response) => {
+      .then((response) => {        
         let user = {
           id: response?.data.id,
           username: response?.data.username,
