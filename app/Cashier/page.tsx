@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, { useEffect } from "react";
 import { useUsersContext } from "../UsersContext/UsersContext";
@@ -17,7 +18,7 @@ const Page = () => {
   const tokenId = userDb?.token;
   const [open, setOpen] = React.useState(false);
   const [openUser, setOpenUser] = React.useState(false);
-  const [userSelected, setUserSelected] = React.useState(null);
+  const [userSelected, setUserSelected] = React.useState({name:''});
 
   const onClose = () => {
     setOpen(!open);
@@ -28,7 +29,7 @@ const Page = () => {
   };
   useEffect(() => {
     userDb && userDb.role === "ADMIN" ? null : router.push("/");
-  }, [router, userDb]);
+  }, [userDb.role]);
 
   const openDataUser = (user) => {
     setUserSelected(user);
@@ -68,6 +69,18 @@ const Page = () => {
     }
   };
 
+  const handlerInputSearch = ({target:{value}})=>{
+    setUserSelected({
+      name: value
+    })
+  }
+
+  const searchUser =(e)=>{
+    e.preventDefault();
+    let userSearch = usersDb?.filter(u => u.username === userSelected.name);    
+    router.push(`/Cashier/${userSearch[0]?.id}`)
+  }
+
   return (
     <main className="jc-sa">
       {open ? (
@@ -82,8 +95,11 @@ const Page = () => {
         </Modal>
       ) : (
         <div className="div">
-          <input type="text" placeholder="buscar..." />
-          <button className="btn-create" onClick={() => setOpen(!open)}>
+          <input type="text" placeholder="buscar..." name="name" value={userSelected.name} onChange={handlerInputSearch} />
+          <button className="btn-create" onClick={searchUser}>
+           Buscar
+          </button>
+          <button className="btn" onClick={() => setOpen(!open)}>
             <span>+</span>
             CREAR NUEVO
           </button>

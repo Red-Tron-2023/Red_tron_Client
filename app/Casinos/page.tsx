@@ -30,7 +30,8 @@ export default function Page() {
   // Estado para calcular el índice del primer casino en cada página
   const indexOfFirstCasino = indexOfLastCasino - casinosPerPage;
   // Estado para obtener los casinos que se mostrarán en la página actual
-  const currentCasinos = casinosDb?.slice(
+  const casinosActive = casinosDb?.filter(el => el.status === 'ACTIVE')
+  const currentCasinos = casinosActive.slice(
     indexOfFirstCasino,
     indexOfLastCasino
   );
@@ -38,13 +39,13 @@ export default function Page() {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(casinosDb?.length / casinosPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(casinosActive?.length / casinosPerPage); i++) {
     pageNumbers.push(i);
   }
 
   // Función para ir a la página siguiente
   const nextPage = () => {
-    if (currentPage < Math.ceil(casinosDb.length / casinosPerPage)) {
+    if (currentPage < Math.ceil(casinosActive.length / casinosPerPage)) {
       setCurrentPage((prevPage) => prevPage + 1);
     }
   };
@@ -65,6 +66,7 @@ export default function Page() {
             name={casino?.name}
             imageUrl={casino?.imageUrl}
             onClose={onClose}
+            Reload={reload}
           />
         </Modal>
       ) : openTwo ? (
@@ -86,8 +88,10 @@ export default function Page() {
             >
               {"<<"}
             </button>
-            <p>{currentPage} de {pageNumbers.length}</p>
-            
+            <p>
+              {currentPage} de {pageNumbers.length}
+            </p>
+
             <button
               className={css.antpost}
               onClick={nextPage}
@@ -95,16 +99,18 @@ export default function Page() {
                 currentPage === Math.ceil(casinosDb?.length / casinosPerPage)
               }
             >
-               {">>"}
+              {">>"}
             </button>
           </div>
           <div className={css.tri}>
-            {currentCasinos?.map((e) => (
-              <div key={e.id} onClick={() => openCasino(e)}>
-                <img src={e.imageUrl} alt="casino" width={150} height={150} />
-                <h3>{e.name}</h3>
-              </div>
-            ))}
+            {currentCasinos?.map((e) =>
+              e.status === "DISABLED" ? null : (
+                <div key={e.id} onClick={() => openCasino(e)}>
+                  <img src={e.imageUrl} alt="casino" width={150} height={150} />
+                  <h3>{e.name}</h3>
+                </div>
+              )
+            )}
           </div>
         </div>
       )}

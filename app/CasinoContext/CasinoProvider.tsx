@@ -13,12 +13,15 @@ export const CasinoProvider = ({ children }: any) => {
   /************* Funcion para traer tods los casinos desde la base de datos y guardarlos en el estado global *************/
   const getCasinosDb = async () => {
     try {
-      const response = await fetch("https://redtronapi-development.up.railway.app/casino", {
-        headers: {
-          "Content-Type": "application/json",
-          authorization: "Bearer " + tokenID,
+      const response = await fetch(
+        "https://redtronapi-development.up.railway.app/casino",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: "Bearer " + tokenID,
+          },
         }
-      });
+      );
       const data = await response.json();
       setCasinosDB(data);
     } catch (error) {
@@ -26,10 +29,10 @@ export const CasinoProvider = ({ children }: any) => {
     }
   };
 
+  /************* Carga de los casinos y actualizacion  *************/
   useEffect(() => {
     tokenID && getCasinosDb();
-  }, [userDb]);
- 
+  }, [userDb, charge]);
 
   return (
     <CasinosContext.Provider value={{ casinosDb, setCharge, charge }}>
