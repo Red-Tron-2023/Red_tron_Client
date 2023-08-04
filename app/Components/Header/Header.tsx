@@ -4,9 +4,11 @@ import { useUserContext } from "../../UserContext/UserContext";
 import css from "./Header.module.css";
 import Link from "next/link";
 import { FaUser } from "react-icons/fa";
+import { RiLogoutBoxRFill } from "react-icons/ri";
+import { initialUser } from "../../UserContext/UserProvider";
 
 export default function header({setOpen}) { 
-  const { userDb } = useUserContext();
+  const { userDb, setUserDB } = useUserContext();
   
   return (
     <div className={css.header}>      
@@ -29,6 +31,9 @@ export default function header({setOpen}) {
             clipRule="evenodd"
           />
         </svg>
+      </button>
+      <button  onClick={()=> setUserDB(initialUser)} >
+        <h2><RiLogoutBoxRFill /></h2>      
       </button>
     </div>
   );

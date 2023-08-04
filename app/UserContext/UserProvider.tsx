@@ -5,9 +5,9 @@ import { user } from '../interfaces/interfaces';
 
 
 
-const initialUser: user = {
+export const initialUser: user = {
     username: 'guest',
-    role: 'guest',
+    role: null,
     id: null,
     token: null,
     phone: null,

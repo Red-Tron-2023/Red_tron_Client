@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { useEffect } from "react";
 import Header from "../Components/Header/Header";
@@ -7,16 +8,17 @@ import { useState } from "react";
 import { CardUser } from "../Components/CardUser/CardUser";
 import { Modal } from "../Components/modal/modal";
 import css from "./page.module.css";
+import { initialUser } from "../UserContext/UserProvider";
 
 export default function Page() {
-  const { userDb } = useUserContext();
+  const { userDb,setUserDB } = useUserContext();
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const openModal = () => setOpen(!open);
 
   useEffect(() => {
     userDb.role !== "ADMIN" ? router.push("/") : null;
-  }, [userDb]);
+  }, [userDb.role]);
 
   return (
     <div>
@@ -26,7 +28,7 @@ export default function Page() {
         </Modal>
       ) : (
         <main className={css.container}>
-          <Header setOpen={openModal} />
+          <Header setOpen={openModal} />          
           <div>
             <h1 className="align-right subrayado">$5.974.100</h1>
             <span>GANANCIAS</span>
