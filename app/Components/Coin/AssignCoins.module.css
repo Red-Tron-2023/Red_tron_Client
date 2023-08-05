@@ -2,7 +2,6 @@
     background-color: var(--color-secondary);
     color: var(--color-primary);
     padding:1rem;    
-    width: 30vw;
     border-radius: 2rem;
     display: flex;
     flex-direction: column;

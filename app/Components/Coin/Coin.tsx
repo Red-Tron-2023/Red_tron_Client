@@ -105,10 +105,10 @@ const Coin = ({ assignedId }) => {
       ))}
       <div>
         {currentPage > 1 && (
-          <button onClick={handleShowPrevious}>Volver</button>
+          <button className={css.boton} onClick={handleShowPrevious}>Volver</button>
         )}
         {filteredMovements.length > currentItems.length && (
-          <button onClick={handleShowMore}>Mostrar más</button>
+          <button className={css.boton} onClick={handleShowMore}>Mostrar más</button>
         )}
       </div>
     </div>
