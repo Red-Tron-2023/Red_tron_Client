@@ -1,7 +1,7 @@
 .container{
     background-color: var(--color-secondary);
     color: var(--color-primary);
-    padding:1rem;    
+    padding:1rem 3em;    
     border-radius: 2rem;
     display: flex;
     flex-direction: column;
