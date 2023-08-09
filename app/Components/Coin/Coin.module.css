@@ -1,16 +1,23 @@
-.container{
-    display: flex;
-    flex-direction: column; 
-    justify-content: center;
-padding: 1rem;
-    width: 30vw;   
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+  align-items: center;
+
+
 }
-.input_filter{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
+.input_filter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 20px 0;
 }
-.container h3{
-    text-align: left;
+.container h3 {
+  text-align: left;
+}
+
+.boton{
+    margin: 20px 10px;
 }
