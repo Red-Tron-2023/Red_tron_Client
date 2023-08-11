@@ -5,6 +5,7 @@ export interface user {
   token: string;
   phone: Number;
   email: string;
+  status:string;
 }
 
 export interface users {

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import Image from "next/image";
 import Logo from "/app/assets/logo.png";
@@ -16,10 +17,10 @@ export default function Home() {
   const [showPassword, setShowPassword] = React.useState(false);
 
   useEffect(() => {
-    userDb.role === "ADMIN" ? router.push("/Admin") : userDb.role === "GUEST" ? router.push("/") : router.push("");
+    userDb.role === "ADMIN" ? router.push("/Admin") : userDb.role === "TELLER" ?router.push("/Teller"): null;
   }, [userDb]);
 
-  const handlerInputChange = ({ target: { name, value } }) => {
+  const handleInputChange = ({ target: { name, value } }) => {
     setInput({
       ...input,
       [name]: value,
@@ -30,8 +31,8 @@ export default function Home() {
     setShowPassword(!showPassword);
   };
 
-  const adminLogin = async (input) => {
-    const userDb = await fetch("https://redtronapi-development.up.railway.app/auth/login", {
+  const userLogin = async (input:object) => {
+    const response = await fetch("https://redtronapi-development.up.railway.app/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -39,7 +40,7 @@ export default function Home() {
       body: JSON.stringify(input),
     })
       .then((res) => res.json())
-      .then((response) => {        
+      .then((response) => {
         let user = {
           id: response?.data.id,
           username: response?.data.username,
@@ -47,28 +48,29 @@ export default function Home() {
           phone: response?.data.phone,
           email: response?.data.email,
           token: response?.data.token,
+          status: response?.data.status
         };
         return user;
       });
-    setUserDB(userDb);
+    setUserDB(response);
   };
 
-  const handlerSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    adminLogin(input);
+    userLogin(input);
   };
 
   return (
     <main>
       <Image src={Logo} alt="REDTRON Logo" width={191} height={182} priority />
       <h2>BIENVENIDO!</h2>
-      <form onSubmit={handlerSubmit}>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Email"
           name="username"
           value={input.username}
-          onChange={handlerInputChange}
+          onChange={handleInputChange}
           required
         />
         <input
@@ -76,7 +78,7 @@ export default function Home() {
           placeholder="Password"
           name="password"
           value={input.password}
-          onChange={handlerInputChange}
+          onChange={handleInputChange}
           required
         />
         <AiOutlineEye className="eye" onClick={toggleShowPassword}/>
@@ -85,3 +87,5 @@ export default function Home() {
     </main>
   );
 }
+
+
