@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, { useEffect } from "react";
 import { CoinsContext } from "./CoinsContext";
@@ -5,14 +6,15 @@ import { useUserContext } from "../UserContext/UserContext";
 import { useCasinosContext } from "../CasinoContext/CasinoContext";
 
 export const CoinsProvider = ({ children, userCasinoId }: any) => {
-  const [coinsDb, setCoinsDB] = React.useState();
+  const [coinsDb, setCoinsDb] = React.useState();
+  const [lastMovementInfo, setLastMovementInfo] = React.useState();
   const [charge, setCharge] = React.useState(false);
   const { userDb } = useUserContext();
   const {casinosDb}=useCasinosContext();
   const tokenID = userDb?.token;
   
 
-  const getCoinsDb = async (userCasinoId) => {
+  const getCoinsDb = async (userCasinoId:string) => {
     try {
       const response = await fetch(`https://redtronapi-development.up.railway.app/coinsMovements?userCasinoId=${userCasinoId}`, {
         headers: {
@@ -21,7 +23,7 @@ export const CoinsProvider = ({ children, userCasinoId }: any) => {
         }
       });
       const data = await response.json();
-      setCoinsDB(data);
+      setCoinsDb(data);
     } catch (error) {
       console.log("Error fetching coinsMovments:", error);
     }
@@ -33,7 +35,7 @@ export const CoinsProvider = ({ children, userCasinoId }: any) => {
  
 
   return (
-    <CoinsContext.Provider value={{ coinsDb, setCharge, charge }}>
+    <CoinsContext.Provider value={{ coinsDb, setCoinsDb,  charge, setCharge, lastMovementInfo, setLastMovementInfo }}>
       {children}
     </CoinsContext.Provider>
   );

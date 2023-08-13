@@ -5,13 +5,15 @@ import { user } from '../interfaces/interfaces';
 
 
 
-export const initialUser: user = {
+ export const initialUser: user = {
     username: 'guest',
-    role: null,
+    role: 'guest',
     id: null,
     token: null,
     phone: null,
-    email: null}
+    email: null,
+    status:null
+}
 
 export const UserProvider = ({ children }:any) => {
     const [userDb, setUserDB] = React.useState(initialUser);
