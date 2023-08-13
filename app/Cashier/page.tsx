@@ -18,7 +18,7 @@ const Page = () => {
   const tokenId = userDb?.token;
   const [open, setOpen] = React.useState(false);
   const [openUser, setOpenUser] = React.useState(false);
-  const [userSelected, setUserSelected] = React.useState({name:''});
+  const [userSelected, setUserSelected] = React.useState({ name: "" });
 
   const onClose = () => {
     setOpen(!open);
@@ -69,17 +69,17 @@ const Page = () => {
     }
   };
 
-  const handlerInputSearch = ({target:{value}})=>{
+  const handlerInputSearch = ({ target: { value } }) => {
     setUserSelected({
-      name: value
-    })
-  }
+      name: value,
+    });
+  };
 
-  const searchUser =(e)=>{
+  const searchUser = (e) => {
     e.preventDefault();
-    let userSearch = usersDb?.filter(u => u.username === userSelected.name);    
-    router.push(`/Cashier/${userSearch[0]?.id}`)
-  }
+    let userSearch = usersDb?.filter((u) => u.username === userSelected.name);
+    router.push(`/Cashier/${userSearch[0]?.id}`);
+  };
 
   return (
     <main className="jc-sa">
@@ -95,11 +95,19 @@ const Page = () => {
         </Modal>
       ) : (
         <div className="div">
-          <input type="text" placeholder="buscar..." name="name" value={userSelected.name} onChange={handlerInputSearch} />
-          <button className="btn-create" onClick={searchUser}>
-           Buscar
-          </button>
-          <button className="btn" onClick={() => setOpen(!open)}>
+          <div className={css.buscar}>
+            <input
+              type="text"
+              placeholder="buscar..."
+              name="name"
+              value={userSelected.name}
+              onChange={handlerInputSearch}
+            />
+            <button className="btn" onClick={searchUser}>
+              Buscar
+            </button>
+          </div>
+          <button className="btn-create" onClick={() => setOpen(!open)}>
             <span>+</span>
             CREAR NUEVO
           </button>
@@ -111,7 +119,9 @@ const Page = () => {
             >
               {"<<"}
             </button>
-            <p>{currentPage} de {pageNumbers.length}</p>
+            <p>
+              {currentPage} de {pageNumbers.length}
+            </p>
             <button
               className={css.antpost}
               onClick={nextPage}
