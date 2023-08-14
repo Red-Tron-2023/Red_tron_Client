@@ -155,10 +155,11 @@ input {
 }
 
 form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: stretch;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  gap: 0.5em;
+  margin: 0;
 }
 
 a {
@@ -289,6 +290,7 @@ h2 span {
 .eye{
   cursor: pointer;
   position: relative;
-  top: -50px;
-  left: 210px;
+  top: 2.5rem;
+  left: 5rem;
 }
+
