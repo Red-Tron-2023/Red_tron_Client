@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
             <CasinoProvider>
               <CoinsProvider>
                 {children}
-                {path !== "/" ? <Navbar /> : null}
+                {path !== "/" && path!== "/Password" ? <Navbar /> : null}
               </CoinsProvider>
             </CasinoProvider>
           </UsersProvider>
