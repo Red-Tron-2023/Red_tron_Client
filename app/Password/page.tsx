@@ -125,7 +125,7 @@ export default function Page() {
         <span className={css.error}>
         {input.comparePasswordError && <p style={{ color: 'red' }} >{input.comparePasswordError}</p>}
         </span>
-        <button onClick={ChangePassword}>Enviar</button>        
+        <button onClick={ChangePassword}>Actualizar</button>        
       </div>
     </main>
   )
