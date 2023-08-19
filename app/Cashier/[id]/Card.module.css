@@ -244,4 +244,9 @@
     font-size: 1em;
   }
 
+  .form_container {
+    height: 30rem;
+    width: 28rem;
+  }
+
 }

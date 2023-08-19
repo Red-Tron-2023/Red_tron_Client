@@ -19,22 +19,32 @@ const CreateCashier = ({ tokenId, onClose, reload }) => {
 
   const createCashier = async (token, object) => {
     try {
-      const userDb = await fetch("https://redtronapi-development.up.railway.app/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: "Bearer " + token,
-        },
-        body: JSON.stringify(object),
-      });
+        const response = await fetch("https://redtronapi-development.up.railway.app/users", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": "Bearer " + token,
+            },
+            body: JSON.stringify(object),
+        });
 
-      // Handle the response if necessary
-      // const response = await userDb.json();
-      // console.log(response);
+        //esta constante permite ver los mensjes que llegan de la api
+        const responseBody = await response.json();
+
+        if (responseBody.error === false) {
+            // Usuario creado exitosamente
+        } else if (responseBody.error === true && responseBody.description.includes("UQ_fe0bb3f6520ee0469504521e710")) {
+            //Para el error identifico el codigo de llave duplicada y genero el mensaje de error
+          throw new Error("El cajero ya existe.");
+        } else if (responseBody.error === true && responseBody.description.includes("UQ_a000cca60bcf04454e727699490")) {
+          throw new Error("El número ya se encuentra registrado.");
+        }else {
+            throw new Error(`Error al crear el usuario: ${responseBody.message}`);
+        }
     } catch (error) {
-      throw new Error("Error creating cashier: " + error.message);
+        throw new Error(`¡Ups! No se pudo crear el cajero: ${error.message}`);
     }
-  };
+};
 
   const handlerInputChange = ({ target: { name, value } }) => {
     setInput({
