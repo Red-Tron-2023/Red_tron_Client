@@ -21,7 +21,6 @@ const Casino = ({ id, name, imageUrl, onClose, Reload }) => {
     (el) => !userCasinoAsigned?.includes(el.username)
   );
 
-
   const handleOptionChange = ({ target: { value } }) => {
     if (option.usersId.includes(value)) {
       setOption({
@@ -87,14 +86,13 @@ const Casino = ({ id, name, imageUrl, onClose, Reload }) => {
             "Content-Type": "application/json",
             authorization: "Bearer " + tokenID,
           },
-          body: JSON.stringify({status:'DISABLED'}),
+          body: JSON.stringify({ status: "DISABLED" }),
         }
-      )      
+      );
       Reload();
       onClose();
-         
     } catch (error) {
-      console.log(error);      
+      console.log(error);
     }
   };
 
@@ -171,8 +169,14 @@ const Casino = ({ id, name, imageUrl, onClose, Reload }) => {
           </div>
         </div>
       </div>
-      <button onClick={() => postUserCasino()}>AGREGAR</button>
-      <h4>Si quiere eliminar este casino, presione <b onClick={deleteCasino}>Aquí</b></h4>
+      <div className={css.botones}>
+        <button className={css.agregar} onClick={() => postUserCasino()}>
+          AGREGAR
+        </button>
+        <button className={css.aqui} onClick={deleteCasino}>
+          ELIMINAR CASINO
+        </button>
+      </div>
     </div>
   );
 };
