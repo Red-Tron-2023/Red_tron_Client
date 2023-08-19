@@ -5,6 +5,7 @@ import { useUsersContext } from "../../UsersContext/UsersContext";
 import { useUserContext } from "../../UserContext/UserContext";
 import { Modal } from "../../Components/modal/modal";
 import { useRouter } from "next/navigation";
+import swal from "sweetalert";
 
 const Page = ({ params }) => {
   const router = useRouter();
@@ -96,15 +97,28 @@ const Page = ({ params }) => {
   };
 
   const editUser = async (user) => {
-    const response = await fetch(`https://redtronapi-development.up.railway.app/users/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: "Bearer " + tokenId,
-      },
-      body: JSON.stringify(user),
-    });
-    reload();
+    try {
+      const response = await fetch(`https://redtronapi-development.up.railway.app/users/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: "Bearer " + tokenId,
+        },
+        body: JSON.stringify(user),
+      });
+
+      const data = await response.json();
+   
+      if(data.error === false) {
+        reload();
+      }else if(data.error === true && data.description.includes("UQ_a000cca60bcf04454e727699490")){
+        throw new Error("El telefono ya se encuentra registrado.");
+      } else {
+        throw new Error(`Error al editar el cajero: ${data.message}`);
+      }
+    } catch (error) {
+        throw new Error(`¡Ups! No se pudo editar el cajero: ${error.message}`);
+    }
   };
 
   const [errors, setErrors] = React.useState({
@@ -149,11 +163,25 @@ const Page = ({ params }) => {
     return !hasErrors;
   };
 
-  const handlerSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handlerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateForm()) {
-      editUser(userEdit);
-      onClose();
+      try {
+        await editUser(userEdit);
+        
+        onClose();
+        swal({
+          title: "Cajero Editado correctamente!",
+          icon: "success",
+        });
+        
+      } catch (error) {
+        swal({
+          title: "Error",
+          text: error.message,
+          icon: "error",
+        });
+      }
     }
   };
 
