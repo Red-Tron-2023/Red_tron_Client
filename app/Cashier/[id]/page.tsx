@@ -270,7 +270,7 @@ const Page = ({ params }) => {
         </div>
       )}
 
-      <button onClick={() => (open ? onClose() : router.back())}>Cerrar</button>
+      <button className={css.cerrar} onClick={() => (open ? onClose() : router.back())}>Cerrar</button>
     </div>
   );
 };
