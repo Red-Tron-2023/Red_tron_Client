@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import { UsersProvider } from "./UsersContext/UsersProvider";
 import { CasinoProvider } from "./CasinoContext/CasinoProvider";
 import { CoinsProvider } from "./CoinsContext/CoinsProvider";
+import { PlayersProvider } from "./PlayersContext/PlayersProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 // export const metadata = {
@@ -30,8 +31,10 @@ export default function RootLayout({ children }) {
           <UsersProvider>
             <CasinoProvider>
               <CoinsProvider>
+              <PlayersProvider>
                 {children}
                 {path !== "/" && path!== "/Password" ? <Navbar /> : null}
+              </PlayersProvider>
               </CoinsProvider>
             </CasinoProvider>
           </UsersProvider>
