@@ -24,7 +24,7 @@ export default function Page() {
   // Estado para controlar la página actual
   const [currentPage, setCurrentPage] = useState(1);
   // Estado para almacenar la cantidad de casinos por página (en este caso, 6 por página)
-  const casinosPerPage = 3;
+  const casinosPerPage = 4;
   // Estado para calcular el índice del último casino en cada página
   const indexOfLastCasino = currentPage * casinosPerPage;
   // Estado para calcular el índice del primer casino en cada página
@@ -76,7 +76,7 @@ export default function Page() {
       ) : (
         <div className={css.casinos}>
           <h1>Casinos Redtron</h1>
-          <button className="btn-create" onClick={() => setOpenTwo(!openTwo)}>
+          <button className={css.btnCreate} onClick={() => setOpenTwo(!openTwo)}>
             <span>+</span>
             CREAR NUEVO CASINO
           </button>
