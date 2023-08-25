@@ -18,7 +18,7 @@ export default function Page() {
   if (casinosDb) {
     casino = casinosDb.find(casino => casino.id === casinoId);
   }
-
+console.log(casinoId)
   const openCreatePlayerModal = () => {
     setIsCreatePlayerModalOpen(true);
   };

@@ -1,37 +1,48 @@
 import React, { useState } from 'react';
 import { useCasinosContext } from '../../CasinoContext/CasinoContext';
+import { useUserContext } from '../../UserContext/UserContext';
+import swal from 'sweetalert';
 
 const CreatePlayer = ({ close, userCasinoId }) => { 
-  const [nickname, setNickname] = useState('');
+  const [nickname, setNickname] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // Add loading state
   const { setCharge } = useCasinosContext(); 
-
   const handleNicknameChange = (event) => {
     setNickname(event.target.value);
   };
-
+  const { userDb } = useUserContext();
+  const token= userDb?.token;
+  const newPlayer={
+    nickname: nickname,
+    userCasinoId: userCasinoId, 
+  }
   const handleCreatePlayer = async () => {
+    setIsLoading(true); 
+
+
     try {
-      const response = await fetch('/players', {
+      const response = await fetch('https://redtronapi-development.up.railway.app/players', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          authorization: "Bearer " + token,
         },
-        body: JSON.stringify({
-          nickname: nickname,
-          userCasinoId: userCasinoId, 
-        }),
+        body: JSON.stringify(
+          newPlayer
+        ),
       });
-
-      if (response.ok) {
-        const responseData = await response.json();
+      const responseData = await response.json();
+      if (!responseData.error) {
         setCharge((prevCharge) => !prevCharge);
-        console.log('Jugador creado exitosamente:', responseData);
+        swal({title: "success", text: "Jugador creado correctamente", icon:"success"})
         close();
       } else {
-        console.error('Error al crear el jugador');
+        throw new Error (`Error al crear el Jugador ${responseData.message}`)
       }
     } catch (error) {
-      console.error('Error en la solicitud:', error);
+      swal({title: "error", text: `${error.message}`, icon:"error"})
+    } finally {
+      setIsLoading(false); 
     }
   };
 
@@ -45,7 +56,9 @@ const CreatePlayer = ({ close, userCasinoId }) => {
         value={nickname}
         onChange={handleNicknameChange}
       />
-      <button onClick={handleCreatePlayer}>Crear</button>
+      <button onClick={handleCreatePlayer} disabled={isLoading}>
+        {isLoading ? 'Creando...' : 'Crear'}
+      </button>
     </div>
   );
 };
