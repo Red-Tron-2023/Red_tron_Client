@@ -155,10 +155,11 @@ input {
 }
 
 form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: stretch;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  gap: 0.5em;
+  margin: 0;
 }
 
 a {
@@ -233,37 +234,6 @@ h2 span {
   margin: 40px 0;
 }
 
-.users {
-  padding: 60px 0;
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-.btn-create {
-  display: flex;
-  align-items: center;
-  margin: 20px 0;
-  padding: 0 40px 0 0;
-  border-radius: 30px;
-}
-
-.btn-create span {
-  font-size: 1.7em;
-  padding: 20px 30px;
-  border-radius: 100%;
-  border: #fbb92d 5px solid;
-  background-color: var(--color-secondary);
-  color: #f3f3f3;
-  position: relative;
-  left: -40px;
-  z-index: 99999;
-}
-
-.btn-create span:hover {
-  transform: scale(1.06);
-}
 
 .modal {
   position: fixed;
@@ -289,6 +259,7 @@ h2 span {
 .eye{
   cursor: pointer;
   position: relative;
-  top: -50px;
-  left: 210px;
+  top: 2.5rem;
+  left: 5rem;
 }
+

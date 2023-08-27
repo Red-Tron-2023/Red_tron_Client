@@ -31,10 +31,10 @@ export default function RootLayout({ children }) {
           <UsersProvider>
             <CasinoProvider>
               <CoinsProvider>
-                <PlayersProvider>
-                  {children}
-                  {path !== "/" ? <Navbar /> : null}
-                </PlayersProvider>
+              <PlayersProvider>
+                {children}
+                {path !== "/" && path!== "/Password" ? <Navbar /> : null}
+              </PlayersProvider>
               </CoinsProvider>
             </CasinoProvider>
           </UsersProvider>

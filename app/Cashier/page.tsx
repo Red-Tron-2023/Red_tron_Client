@@ -10,6 +10,7 @@ import CreateCashier from "../Components/CreateCashier/CreateCashier";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import page from "../Password/page";
+import swal from "sweetalert";
 
 const Page = () => {
   const router = useRouter();
@@ -18,7 +19,9 @@ const Page = () => {
   const tokenId = userDb?.token;
   const [open, setOpen] = React.useState(false);
   const [openUser, setOpenUser] = React.useState(false);
-  const [userSelected, setUserSelected] = React.useState({ name: "" });
+  const [userSelected, setUserSelected] = React.useState("");
+  const [filteredUsers, setFilteredUsers] = React.useState([]);
+
 
   const onClose = () => {
     setOpen(!open);
@@ -37,23 +40,29 @@ const Page = () => {
   };
 
   const [currentPage, setCurrentPage] = React.useState(1);
-  const usersPerPage = 6; // Define la cantidad de usuarios por página
+  const usersPerPage = 8; // Define la cantidad de usuarios por página
 
   // Calcula el índice del último usuario en cada página
   const indexOfLastUser = currentPage * usersPerPage;
   // Calcula el índice del primer usuario en cada página
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   // Filtra los usuarios que se mostrarán en la página actual
-  const currentUsers = usersDb?.slice(indexOfFirstUser, indexOfLastUser);
+  let currentUsers = filteredUsers.length
+  ? filteredUsers.slice(indexOfFirstUser, indexOfLastUser)
+  : usersDb?.slice(indexOfFirstUser, indexOfLastUser);
+
 
   // Calcula los números de página
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil((usersDb?.length || 1) / usersPerPage); i++) {
-    pageNumbers.push(i);
+  if(filteredUsers.length > 0){
+    for (let i = 1; i <= Math.ceil((filteredUsers?.length || 1) / usersPerPage); i++) {
+      pageNumbers.push(i);
+    }
+  }else {
+    for (let i = 1; i <= Math.ceil((usersDb?.length || 1) / usersPerPage); i++) {
+      pageNumbers.push(i);
+    }
   }
-
-  // Función para cambiar de página
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   // Función para ir a la página siguiente
   const nextPage = () => {
@@ -70,15 +79,35 @@ const Page = () => {
   };
 
   const handlerInputSearch = ({ target: { value } }) => {
-    setUserSelected({
-      name: value,
+
+    const lowercaseValue = value.toLowerCase(); 
+  
+    const userSearch = usersDb?.filter((user) => {
+      const lowercaseUsername = user.username.toLowerCase(); // Convertir el nombre de usuario a minúsculas
+      return lowercaseUsername.includes(lowercaseValue);
     });
+  
+    setUserSelected(value);
+  
+    if (userSearch.length) {
+      setFilteredUsers(userSearch);
+    } else {
+      setFilteredUsers([]);
+    }
   };
 
-  const searchUser = (e) => {
-    e.preventDefault();
-    let userSearch = usersDb?.filter((u) => u.username === userSelected.name);
-    router.push(`/Cashier/${userSearch[0]?.id}`);
+  const searchUser = () => {
+    let userSearch = usersDb?.filter((u) => u.username === userSelected);
+    if(userSearch.length){
+      router.push(`/Cashier/${userSearch[0]?.id}`);
+    }else {
+      swal({
+        title: "Ups!!",
+        text: `No pudimos encontrar a ${userSelected}`,
+        icon: "error",
+      });
+    }
+
   };
 
   return (
@@ -100,14 +129,14 @@ const Page = () => {
               type="text"
               placeholder="buscar..."
               name="name"
-              value={userSelected.name}
+              value={userSelected}
               onChange={handlerInputSearch}
             />
-            <button className="btn" onClick={searchUser}>
+            <button className={css.btn} onClick={searchUser}>
               Buscar
             </button>
           </div>
-          <button className="btn-create" onClick={() => setOpen(!open)}>
+          <button className={css.btnCreate} onClick={() => setOpen(!open)}>
             <span>+</span>
             CREAR NUEVO
           </button>
@@ -132,7 +161,7 @@ const Page = () => {
               {">>"}
             </button>
           </div>
-          <div className="users">
+          <div className={css.users}>
             <ul className={css.container_cashiers}>
               {currentUsers?.map((user) => (
                 <li

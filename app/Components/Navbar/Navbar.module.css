@@ -38,3 +38,10 @@
    transform: scale(1.05);
    opacity: 1 !important;
 }
+
+@media (min-width: 320px) and (max-width: 420px) {
+    .navbar{
+        gap: 8px;
+    }
+  
+  }
